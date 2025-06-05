@@ -1,0 +1,1001 @@
+id_cancelamento,id_usuario,motivo,data_cancelamento
+1,729,Pouco conteúdo,2022-12-21
+2,602,Não usa mais,2024-04-18
+3,818,Não usa mais,2023-04-28
+4,387,Problemas técnicos,2024-05-17
+5,551,Pouco conteúdo,2023-04-15
+6,798,Não usa mais,2024-07-09
+7,508,Muito caro,2023-11-21
+8,511,Problemas técnicos,2022-10-28
+9,231,Não usa mais,2024-02-20
+10,594,Problemas técnicos,2023-11-08
+11,412,Muito caro,2024-07-23
+12,539,Pouco conteúdo,2023-07-29
+13,521,Problemas técnicos,2024-04-07
+14,31,Pouco conteúdo,2024-02-09
+15,552,Muito caro,2024-03-18
+16,25,Muito caro,2024-01-28
+17,713,Problemas técnicos,2022-10-27
+18,140,Muito caro,2024-04-18
+19,430,Não usa mais,2023-07-28
+20,959,Não usa mais,2023-03-06
+21,795,Muito caro,2024-07-04
+22,615,Pouco conteúdo,2023-11-14
+23,237,Problemas técnicos,2023-12-24
+24,844,Problemas técnicos,2023-10-13
+25,551,Muito caro,2023-10-04
+26,705,Não usa mais,2022-09-04
+27,466,Problemas técnicos,2022-11-27
+28,582,Muito caro,2022-09-05
+29,363,Problemas técnicos,2024-05-22
+30,984,Pouco conteúdo,2024-08-04
+31,299,Problemas técnicos,2023-07-18
+32,782,Não usa mais,2023-02-28
+33,363,Muito caro,2024-06-16
+34,933,Não usa mais,2024-11-02
+35,12,Problemas técnicos,2023-06-30
+36,76,Não usa mais,2024-07-26
+37,335,Muito caro,2022-09-26
+38,709,Pouco conteúdo,2023-08-11
+39,318,Pouco conteúdo,2023-05-06
+40,906,Pouco conteúdo,2025-03-11
+41,399,Pouco conteúdo,2023-08-29
+42,592,Muito caro,2023-05-04
+43,185,Problemas técnicos,2022-06-13
+44,347,Não usa mais,2024-09-09
+45,756,Não usa mais,2022-08-15
+46,357,Não usa mais,2024-11-11
+47,158,Muito caro,2023-11-29
+48,183,Pouco conteúdo,2023-06-08
+49,203,Pouco conteúdo,2022-08-23
+50,515,Pouco conteúdo,2023-03-31
+51,381,Não usa mais,2023-06-05
+52,625,Não usa mais,2023-09-19
+53,73,Não usa mais,2023-08-10
+54,161,Pouco conteúdo,2025-01-11
+55,804,Muito caro,2023-05-05
+56,869,Problemas técnicos,2023-07-13
+57,335,Problemas técnicos,2023-10-28
+58,432,Problemas técnicos,2023-05-27
+59,252,Pouco conteúdo,2024-06-03
+60,670,Muito caro,2022-06-08
+61,402,Não usa mais,2023-12-21
+62,88,Não usa mais,2024-05-18
+63,642,Não usa mais,2024-01-04
+64,472,Muito caro,2025-03-08
+65,615,Problemas técnicos,2022-09-26
+66,154,Muito caro,2023-02-25
+67,310,Não usa mais,2023-07-01
+68,354,Não usa mais,2024-02-03
+69,294,Muito caro,2024-04-12
+70,701,Pouco conteúdo,2023-02-24
+71,86,Problemas técnicos,2025-04-12
+72,154,Problemas técnicos,2025-05-16
+73,770,Muito caro,2024-09-08
+74,950,Problemas técnicos,2024-09-15
+75,436,Problemas técnicos,2025-04-08
+76,624,Problemas técnicos,2024-07-20
+77,491,Não usa mais,2024-09-15
+78,951,Muito caro,2025-02-19
+79,46,Muito caro,2025-05-24
+80,966,Muito caro,2024-07-27
+81,561,Problemas técnicos,2024-12-08
+82,664,Pouco conteúdo,2022-12-25
+83,246,Pouco conteúdo,2024-06-02
+84,429,Pouco conteúdo,2025-01-15
+85,677,Problemas técnicos,2024-04-05
+86,287,Problemas técnicos,2023-03-09
+87,761,Não usa mais,2025-06-01
+88,773,Pouco conteúdo,2023-08-01
+89,744,Muito caro,2024-06-05
+90,286,Muito caro,2024-07-26
+91,484,Problemas técnicos,2024-02-07
+92,57,Não usa mais,2023-05-25
+93,835,Não usa mais,2023-07-19
+94,210,Problemas técnicos,2023-08-09
+95,994,Muito caro,2022-08-19
+96,224,Muito caro,2024-09-01
+97,710,Problemas técnicos,2022-07-02
+98,178,Pouco conteúdo,2023-08-13
+99,551,Não usa mais,2025-01-28
+100,326,Muito caro,2023-03-16
+101,55,Pouco conteúdo,2024-06-11
+102,334,Problemas técnicos,2024-06-24
+103,285,Muito caro,2023-04-11
+104,209,Muito caro,2023-08-19
+105,8,Problemas técnicos,2024-12-25
+106,275,Não usa mais,2022-09-30
+107,703,Muito caro,2022-12-11
+108,244,Pouco conteúdo,2023-04-05
+109,964,Não usa mais,2022-10-21
+110,235,Pouco conteúdo,2025-05-04
+111,343,Não usa mais,2024-05-23
+112,17,Muito caro,2022-09-25
+113,630,Problemas técnicos,2024-05-26
+114,949,Pouco conteúdo,2023-01-19
+115,208,Não usa mais,2023-06-06
+116,81,Não usa mais,2023-02-13
+117,583,Problemas técnicos,2024-10-02
+118,562,Pouco conteúdo,2023-11-19
+119,827,Pouco conteúdo,2022-11-29
+120,721,Muito caro,2023-04-08
+121,349,Pouco conteúdo,2023-09-28
+122,377,Muito caro,2023-05-12
+123,176,Pouco conteúdo,2023-08-06
+124,116,Não usa mais,2024-10-09
+125,164,Problemas técnicos,2023-02-05
+126,38,Pouco conteúdo,2025-03-04
+127,286,Pouco conteúdo,2024-07-01
+128,112,Problemas técnicos,2022-12-24
+129,767,Não usa mais,2024-06-19
+130,829,Problemas técnicos,2023-07-25
+131,794,Problemas técnicos,2023-07-24
+132,933,Pouco conteúdo,2023-05-21
+133,404,Não usa mais,2022-08-04
+134,364,Pouco conteúdo,2025-04-21
+135,984,Muito caro,2023-02-24
+136,190,Não usa mais,2024-03-02
+137,100,Pouco conteúdo,2024-07-21
+138,639,Não usa mais,2025-04-13
+139,696,Problemas técnicos,2024-11-26
+140,873,Não usa mais,2024-08-09
+141,439,Problemas técnicos,2024-10-03
+142,145,Problemas técnicos,2022-11-03
+143,504,Muito caro,2025-05-01
+144,24,Problemas técnicos,2022-08-14
+145,375,Problemas técnicos,2023-01-10
+146,687,Não usa mais,2024-05-02
+147,849,Pouco conteúdo,2023-10-30
+148,209,Pouco conteúdo,2022-09-28
+149,881,Pouco conteúdo,2023-05-21
+150,544,Muito caro,2023-10-03
+151,17,Muito caro,2023-03-08
+152,401,Não usa mais,2024-02-27
+153,7,Pouco conteúdo,2022-07-25
+154,377,Problemas técnicos,2024-06-30
+155,579,Não usa mais,2025-04-12
+156,662,Pouco conteúdo,2023-03-20
+157,518,Problemas técnicos,2024-02-13
+158,317,Não usa mais,2023-04-24
+159,566,Pouco conteúdo,2023-02-14
+160,440,Não usa mais,2023-09-25
+161,534,Não usa mais,2024-10-11
+162,244,Não usa mais,2024-05-18
+163,468,Pouco conteúdo,2024-03-23
+164,679,Não usa mais,2025-04-10
+165,716,Não usa mais,2024-01-26
+166,910,Problemas técnicos,2022-09-17
+167,39,Não usa mais,2023-01-11
+168,29,Não usa mais,2023-08-21
+169,462,Problemas técnicos,2023-08-04
+170,640,Não usa mais,2022-06-20
+171,188,Problemas técnicos,2022-06-15
+172,255,Problemas técnicos,2022-08-07
+173,194,Não usa mais,2022-10-27
+174,349,Problemas técnicos,2024-06-28
+175,228,Não usa mais,2022-09-16
+176,108,Pouco conteúdo,2023-06-10
+177,380,Não usa mais,2024-02-26
+178,511,Problemas técnicos,2024-03-21
+179,578,Muito caro,2022-12-02
+180,714,Muito caro,2023-01-17
+181,459,Não usa mais,2024-06-08
+182,10,Muito caro,2023-02-21
+183,815,Pouco conteúdo,2024-07-16
+184,442,Não usa mais,2024-03-22
+185,261,Problemas técnicos,2023-09-12
+186,985,Não usa mais,2023-06-14
+187,181,Problemas técnicos,2023-04-30
+188,472,Não usa mais,2024-08-03
+189,58,Não usa mais,2022-09-29
+190,460,Problemas técnicos,2024-12-29
+191,855,Problemas técnicos,2022-08-23
+192,600,Problemas técnicos,2025-04-20
+193,238,Muito caro,2025-02-27
+194,43,Pouco conteúdo,2023-01-13
+195,232,Não usa mais,2024-05-20
+196,343,Problemas técnicos,2023-06-09
+197,358,Problemas técnicos,2023-07-28
+198,294,Pouco conteúdo,2023-06-25
+199,508,Pouco conteúdo,2022-12-06
+200,267,Não usa mais,2022-12-23
+201,319,Não usa mais,2023-02-02
+202,504,Pouco conteúdo,2024-08-02
+203,583,Problemas técnicos,2025-03-24
+204,448,Não usa mais,2024-08-05
+205,431,Muito caro,2024-10-19
+206,523,Pouco conteúdo,2022-08-18
+207,127,Problemas técnicos,2022-09-01
+208,819,Muito caro,2023-03-21
+209,357,Não usa mais,2024-11-21
+210,506,Não usa mais,2022-06-11
+211,181,Não usa mais,2024-03-17
+212,195,Não usa mais,2025-05-29
+213,611,Pouco conteúdo,2024-01-28
+214,670,Não usa mais,2025-01-18
+215,375,Muito caro,2023-12-13
+216,544,Problemas técnicos,2024-03-31
+217,186,Muito caro,2022-12-16
+218,256,Muito caro,2024-05-19
+219,70,Não usa mais,2023-01-12
+220,94,Não usa mais,2024-07-27
+221,310,Não usa mais,2025-03-05
+222,413,Não usa mais,2025-01-12
+223,737,Problemas técnicos,2024-11-30
+224,460,Muito caro,2023-05-07
+225,892,Não usa mais,2022-08-29
+226,219,Problemas técnicos,2022-12-28
+227,401,Não usa mais,2025-03-26
+228,283,Não usa mais,2023-02-22
+229,992,Não usa mais,2022-12-19
+230,476,Muito caro,2023-04-14
+231,793,Problemas técnicos,2023-03-13
+232,219,Pouco conteúdo,2024-08-10
+233,662,Muito caro,2025-03-28
+234,916,Muito caro,2024-10-30
+235,581,Pouco conteúdo,2022-06-09
+236,153,Pouco conteúdo,2023-11-02
+237,978,Pouco conteúdo,2022-10-08
+238,843,Muito caro,2024-11-05
+239,552,Problemas técnicos,2023-08-19
+240,670,Muito caro,2022-08-06
+241,478,Pouco conteúdo,2024-09-05
+242,234,Muito caro,2022-07-04
+243,415,Problemas técnicos,2022-10-19
+244,107,Pouco conteúdo,2024-12-17
+245,839,Muito caro,2024-12-05
+246,110,Pouco conteúdo,2024-04-17
+247,26,Muito caro,2024-01-19
+248,901,Pouco conteúdo,2023-11-19
+249,928,Muito caro,2025-03-23
+250,872,Problemas técnicos,2023-11-02
+251,965,Muito caro,2023-11-28
+252,54,Pouco conteúdo,2024-02-09
+253,964,Muito caro,2024-04-16
+254,34,Muito caro,2024-01-03
+255,715,Pouco conteúdo,2023-02-21
+256,666,Problemas técnicos,2024-07-26
+257,911,Não usa mais,2024-08-02
+258,286,Muito caro,2023-06-17
+259,891,Problemas técnicos,2024-10-22
+260,681,Problemas técnicos,2024-06-07
+261,988,Muito caro,2023-08-29
+262,290,Problemas técnicos,2024-06-13
+263,150,Pouco conteúdo,2023-03-07
+264,767,Não usa mais,2024-07-27
+265,752,Muito caro,2022-07-19
+266,169,Muito caro,2025-03-15
+267,672,Não usa mais,2022-12-01
+268,682,Pouco conteúdo,2024-06-09
+269,705,Não usa mais,2022-09-15
+270,511,Muito caro,2025-02-20
+271,941,Problemas técnicos,2023-07-23
+272,292,Muito caro,2023-09-09
+273,179,Problemas técnicos,2022-07-21
+274,252,Pouco conteúdo,2025-02-26
+275,66,Muito caro,2023-06-17
+276,212,Pouco conteúdo,2025-01-27
+277,657,Problemas técnicos,2024-11-05
+278,498,Não usa mais,2023-04-01
+279,736,Muito caro,2025-01-28
+280,513,Pouco conteúdo,2023-05-01
+281,146,Problemas técnicos,2022-06-04
+282,385,Não usa mais,2023-02-22
+283,448,Muito caro,2023-01-10
+284,457,Não usa mais,2024-03-11
+285,777,Problemas técnicos,2024-01-27
+286,581,Muito caro,2024-04-30
+287,647,Muito caro,2022-07-26
+288,755,Não usa mais,2023-05-03
+289,32,Pouco conteúdo,2025-01-28
+290,755,Problemas técnicos,2023-10-22
+291,370,Pouco conteúdo,2024-08-31
+292,686,Pouco conteúdo,2025-04-13
+293,15,Muito caro,2022-09-20
+294,256,Muito caro,2025-03-07
+295,551,Problemas técnicos,2023-07-18
+296,76,Problemas técnicos,2023-02-13
+297,889,Muito caro,2024-07-29
+298,879,Pouco conteúdo,2024-04-24
+299,169,Problemas técnicos,2023-07-28
+300,127,Pouco conteúdo,2022-09-06
+301,327,Problemas técnicos,2024-03-17
+302,677,Não usa mais,2022-06-21
+303,894,Muito caro,2024-11-25
+304,878,Pouco conteúdo,2024-07-09
+305,499,Problemas técnicos,2022-12-10
+306,217,Problemas técnicos,2022-08-16
+307,11,Muito caro,2024-09-13
+308,66,Não usa mais,2024-03-12
+309,536,Pouco conteúdo,2023-10-01
+310,51,Pouco conteúdo,2023-05-07
+311,154,Problemas técnicos,2022-08-30
+312,571,Pouco conteúdo,2024-09-02
+313,376,Não usa mais,2023-05-29
+314,675,Problemas técnicos,2024-02-18
+315,250,Pouco conteúdo,2022-12-20
+316,985,Não usa mais,2024-07-06
+317,202,Não usa mais,2023-01-15
+318,645,Muito caro,2025-05-24
+319,933,Muito caro,2022-08-15
+320,609,Pouco conteúdo,2023-08-26
+321,234,Pouco conteúdo,2025-01-23
+322,170,Pouco conteúdo,2022-10-06
+323,871,Pouco conteúdo,2023-05-05
+324,986,Problemas técnicos,2022-07-12
+325,38,Pouco conteúdo,2023-05-04
+326,844,Problemas técnicos,2024-09-26
+327,813,Problemas técnicos,2024-03-17
+328,320,Não usa mais,2024-10-14
+329,539,Pouco conteúdo,2024-01-04
+330,545,Problemas técnicos,2025-04-25
+331,229,Não usa mais,2023-10-04
+332,51,Pouco conteúdo,2023-08-17
+333,739,Pouco conteúdo,2022-06-26
+334,885,Não usa mais,2024-12-28
+335,43,Problemas técnicos,2024-12-06
+336,563,Muito caro,2024-03-24
+337,7,Não usa mais,2024-06-04
+338,754,Muito caro,2025-01-24
+339,118,Não usa mais,2023-03-02
+340,766,Não usa mais,2023-12-14
+341,266,Muito caro,2022-09-12
+342,551,Muito caro,2024-08-21
+343,355,Pouco conteúdo,2024-06-29
+344,218,Problemas técnicos,2023-10-04
+345,831,Pouco conteúdo,2022-10-26
+346,447,Muito caro,2024-05-25
+347,381,Problemas técnicos,2024-01-28
+348,654,Problemas técnicos,2024-10-10
+349,622,Não usa mais,2024-09-05
+350,750,Não usa mais,2025-03-22
+351,544,Muito caro,2023-07-24
+352,820,Problemas técnicos,2025-04-18
+353,358,Não usa mais,2024-06-08
+354,164,Muito caro,2024-12-15
+355,440,Problemas técnicos,2024-08-01
+356,260,Problemas técnicos,2025-03-09
+357,481,Muito caro,2023-02-01
+358,785,Muito caro,2024-09-07
+359,292,Pouco conteúdo,2024-01-01
+360,126,Pouco conteúdo,2022-07-24
+361,182,Problemas técnicos,2024-06-15
+362,559,Pouco conteúdo,2023-04-11
+363,776,Pouco conteúdo,2025-04-23
+364,867,Muito caro,2024-08-03
+365,634,Pouco conteúdo,2024-12-31
+366,23,Não usa mais,2023-11-28
+367,197,Não usa mais,2024-10-22
+368,13,Muito caro,2024-02-28
+369,348,Não usa mais,2022-09-08
+370,76,Pouco conteúdo,2023-12-28
+371,615,Muito caro,2024-06-23
+372,43,Pouco conteúdo,2025-02-20
+373,513,Pouco conteúdo,2022-10-30
+374,753,Problemas técnicos,2023-01-25
+375,167,Problemas técnicos,2024-06-24
+376,945,Problemas técnicos,2022-07-26
+377,951,Não usa mais,2024-01-23
+378,781,Problemas técnicos,2022-12-14
+379,79,Muito caro,2025-03-12
+380,535,Muito caro,2024-01-29
+381,531,Muito caro,2024-12-06
+382,528,Muito caro,2024-11-23
+383,514,Pouco conteúdo,2024-02-10
+384,375,Problemas técnicos,2025-05-27
+385,95,Muito caro,2023-05-01
+386,445,Pouco conteúdo,2024-02-03
+387,904,Problemas técnicos,2022-06-30
+388,212,Muito caro,2025-01-11
+389,447,Problemas técnicos,2024-12-21
+390,475,Não usa mais,2025-01-10
+391,356,Problemas técnicos,2024-09-24
+392,705,Não usa mais,2024-07-26
+393,999,Problemas técnicos,2023-06-25
+394,748,Muito caro,2022-09-24
+395,287,Não usa mais,2023-05-21
+396,385,Pouco conteúdo,2024-01-01
+397,814,Problemas técnicos,2023-06-27
+398,150,Não usa mais,2025-05-14
+399,889,Pouco conteúdo,2024-07-28
+400,205,Problemas técnicos,2025-05-08
+401,229,Não usa mais,2023-06-05
+402,654,Problemas técnicos,2023-03-22
+403,702,Não usa mais,2025-02-16
+404,30,Não usa mais,2024-06-23
+405,879,Pouco conteúdo,2024-10-02
+406,155,Muito caro,2022-12-15
+407,724,Não usa mais,2024-09-21
+408,753,Não usa mais,2022-07-08
+409,126,Muito caro,2023-09-30
+410,176,Muito caro,2023-10-16
+411,740,Pouco conteúdo,2024-03-24
+412,91,Muito caro,2022-08-09
+413,40,Muito caro,2022-07-27
+414,546,Não usa mais,2025-02-13
+415,365,Não usa mais,2023-12-17
+416,160,Não usa mais,2025-04-10
+417,385,Pouco conteúdo,2022-10-23
+418,681,Pouco conteúdo,2024-12-26
+419,78,Muito caro,2023-03-27
+420,387,Não usa mais,2022-07-29
+421,188,Problemas técnicos,2023-12-20
+422,502,Não usa mais,2024-02-24
+423,180,Problemas técnicos,2024-03-16
+424,382,Problemas técnicos,2022-08-30
+425,203,Problemas técnicos,2023-03-26
+426,429,Não usa mais,2022-06-28
+427,771,Muito caro,2022-10-03
+428,287,Problemas técnicos,2023-03-31
+429,931,Pouco conteúdo,2024-07-26
+430,872,Pouco conteúdo,2022-12-08
+431,81,Pouco conteúdo,2025-03-03
+432,73,Não usa mais,2025-04-14
+433,923,Pouco conteúdo,2022-12-02
+434,195,Não usa mais,2022-07-22
+435,717,Não usa mais,2024-12-03
+436,191,Pouco conteúdo,2024-06-16
+437,919,Pouco conteúdo,2025-04-19
+438,693,Muito caro,2023-10-07
+439,341,Muito caro,2022-11-27
+440,373,Problemas técnicos,2025-04-15
+441,174,Problemas técnicos,2022-12-13
+442,322,Muito caro,2025-03-15
+443,942,Muito caro,2022-07-30
+444,977,Muito caro,2023-03-15
+445,194,Problemas técnicos,2022-08-21
+446,928,Muito caro,2024-05-21
+447,717,Pouco conteúdo,2022-09-17
+448,390,Problemas técnicos,2022-09-28
+449,934,Pouco conteúdo,2023-11-16
+450,896,Não usa mais,2024-05-03
+451,271,Não usa mais,2025-01-03
+452,867,Não usa mais,2025-04-15
+453,17,Muito caro,2023-05-18
+454,991,Pouco conteúdo,2024-09-14
+455,493,Não usa mais,2022-10-23
+456,12,Muito caro,2024-01-23
+457,238,Não usa mais,2024-10-20
+458,353,Não usa mais,2024-01-20
+459,248,Pouco conteúdo,2024-05-03
+460,752,Muito caro,2024-02-15
+461,603,Não usa mais,2024-08-03
+462,98,Muito caro,2023-09-08
+463,764,Problemas técnicos,2023-01-24
+464,171,Muito caro,2024-12-22
+465,975,Muito caro,2023-08-24
+466,659,Pouco conteúdo,2025-04-13
+467,442,Problemas técnicos,2024-07-01
+468,142,Problemas técnicos,2024-02-15
+469,862,Pouco conteúdo,2024-03-19
+470,262,Problemas técnicos,2025-04-29
+471,992,Problemas técnicos,2024-03-15
+472,886,Pouco conteúdo,2024-08-18
+473,239,Problemas técnicos,2022-07-05
+474,944,Não usa mais,2022-09-26
+475,565,Muito caro,2022-09-04
+476,803,Não usa mais,2025-04-17
+477,983,Não usa mais,2023-01-13
+478,377,Problemas técnicos,2024-09-04
+479,792,Problemas técnicos,2022-06-23
+480,763,Pouco conteúdo,2022-09-19
+481,981,Problemas técnicos,2023-12-12
+482,14,Pouco conteúdo,2023-06-07
+483,947,Não usa mais,2022-09-08
+484,130,Não usa mais,2023-10-09
+485,142,Pouco conteúdo,2023-12-09
+486,427,Não usa mais,2023-07-28
+487,887,Problemas técnicos,2022-06-27
+488,236,Pouco conteúdo,2024-06-29
+489,19,Pouco conteúdo,2024-08-27
+490,823,Muito caro,2022-07-17
+491,642,Problemas técnicos,2023-02-01
+492,824,Problemas técnicos,2022-10-03
+493,314,Problemas técnicos,2025-01-19
+494,712,Problemas técnicos,2024-08-23
+495,629,Muito caro,2022-07-08
+496,25,Problemas técnicos,2023-02-15
+497,113,Não usa mais,2024-05-26
+498,226,Problemas técnicos,2023-08-10
+499,467,Muito caro,2022-08-21
+500,258,Problemas técnicos,2023-11-26
+501,770,Não usa mais,2025-03-10
+502,297,Problemas técnicos,2023-06-03
+503,201,Muito caro,2022-10-18
+504,904,Não usa mais,2023-11-03
+505,641,Não usa mais,2023-05-25
+506,728,Problemas técnicos,2025-05-09
+507,696,Não usa mais,2024-05-04
+508,761,Pouco conteúdo,2023-01-25
+509,610,Muito caro,2023-02-14
+510,875,Problemas técnicos,2023-10-18
+511,809,Muito caro,2024-04-07
+512,839,Pouco conteúdo,2023-02-27
+513,326,Muito caro,2022-08-19
+514,958,Muito caro,2023-01-26
+515,308,Não usa mais,2025-03-10
+516,945,Problemas técnicos,2023-10-23
+517,590,Problemas técnicos,2024-07-20
+518,47,Não usa mais,2024-01-19
+519,466,Pouco conteúdo,2023-07-02
+520,893,Pouco conteúdo,2023-01-11
+521,463,Muito caro,2024-06-18
+522,734,Pouco conteúdo,2024-02-03
+523,35,Muito caro,2024-09-02
+524,319,Muito caro,2023-04-03
+525,35,Muito caro,2023-10-11
+526,742,Problemas técnicos,2023-10-12
+527,643,Pouco conteúdo,2022-07-06
+528,597,Pouco conteúdo,2023-04-03
+529,911,Não usa mais,2023-09-13
+530,322,Não usa mais,2023-09-30
+531,108,Não usa mais,2022-11-22
+532,566,Problemas técnicos,2023-01-13
+533,398,Pouco conteúdo,2023-08-03
+534,871,Pouco conteúdo,2022-12-23
+535,492,Muito caro,2024-05-09
+536,120,Muito caro,2022-12-31
+537,731,Não usa mais,2023-12-15
+538,708,Pouco conteúdo,2023-07-30
+539,985,Muito caro,2024-11-24
+540,648,Pouco conteúdo,2024-06-18
+541,169,Pouco conteúdo,2024-11-26
+542,491,Problemas técnicos,2023-07-04
+543,510,Pouco conteúdo,2025-05-07
+544,613,Pouco conteúdo,2024-06-14
+545,364,Problemas técnicos,2025-05-03
+546,690,Muito caro,2022-09-10
+547,161,Muito caro,2023-12-07
+548,251,Não usa mais,2022-10-04
+549,394,Pouco conteúdo,2025-02-28
+550,231,Pouco conteúdo,2023-08-11
+551,7,Muito caro,2023-03-26
+552,340,Pouco conteúdo,2023-05-07
+553,778,Problemas técnicos,2024-03-02
+554,67,Muito caro,2022-06-27
+555,446,Muito caro,2022-10-13
+556,522,Problemas técnicos,2025-04-27
+557,490,Muito caro,2023-02-21
+558,695,Muito caro,2023-09-22
+559,477,Muito caro,2024-12-18
+560,684,Pouco conteúdo,2024-07-17
+561,367,Problemas técnicos,2024-07-17
+562,761,Problemas técnicos,2024-06-17
+563,24,Problemas técnicos,2023-05-02
+564,411,Muito caro,2022-08-08
+565,462,Pouco conteúdo,2025-03-31
+566,516,Muito caro,2024-05-10
+567,894,Muito caro,2023-08-09
+568,100,Problemas técnicos,2023-08-31
+569,492,Problemas técnicos,2023-04-02
+570,641,Muito caro,2024-12-13
+571,313,Muito caro,2022-07-28
+572,203,Problemas técnicos,2023-06-17
+573,821,Problemas técnicos,2023-09-05
+574,458,Não usa mais,2024-04-03
+575,489,Problemas técnicos,2023-02-02
+576,655,Muito caro,2024-02-15
+577,328,Muito caro,2025-04-10
+578,39,Pouco conteúdo,2024-05-25
+579,948,Problemas técnicos,2023-07-21
+580,671,Muito caro,2023-01-08
+581,455,Pouco conteúdo,2023-01-22
+582,11,Muito caro,2024-05-23
+583,392,Muito caro,2024-11-15
+584,633,Pouco conteúdo,2024-03-19
+585,261,Problemas técnicos,2024-05-01
+586,537,Muito caro,2022-08-24
+587,932,Não usa mais,2022-12-09
+588,489,Muito caro,2025-02-11
+589,98,Muito caro,2022-11-09
+590,671,Não usa mais,2025-05-10
+591,371,Muito caro,2023-06-24
+592,408,Muito caro,2024-07-25
+593,43,Pouco conteúdo,2023-07-09
+594,264,Problemas técnicos,2023-01-16
+595,682,Problemas técnicos,2024-10-03
+596,910,Pouco conteúdo,2023-07-27
+597,46,Problemas técnicos,2024-03-28
+598,648,Muito caro,2024-11-29
+599,415,Não usa mais,2022-07-15
+600,266,Muito caro,2024-06-27
+601,567,Problemas técnicos,2024-07-13
+602,965,Muito caro,2023-01-24
+603,452,Não usa mais,2022-12-11
+604,680,Pouco conteúdo,2024-02-18
+605,120,Muito caro,2024-11-10
+606,233,Muito caro,2022-11-23
+607,38,Pouco conteúdo,2023-02-02
+608,288,Muito caro,2024-07-02
+609,606,Problemas técnicos,2023-07-14
+610,719,Problemas técnicos,2022-06-13
+611,449,Problemas técnicos,2022-07-29
+612,482,Muito caro,2022-09-16
+613,603,Não usa mais,2024-12-18
+614,219,Muito caro,2024-09-04
+615,21,Não usa mais,2024-11-10
+616,495,Pouco conteúdo,2023-06-30
+617,975,Pouco conteúdo,2025-01-04
+618,967,Não usa mais,2025-02-21
+619,140,Muito caro,2024-12-29
+620,185,Muito caro,2024-12-05
+621,209,Pouco conteúdo,2022-09-28
+622,551,Pouco conteúdo,2023-03-18
+623,814,Muito caro,2024-06-24
+624,319,Pouco conteúdo,2023-05-09
+625,820,Muito caro,2023-03-09
+626,898,Muito caro,2024-08-22
+627,4,Muito caro,2023-11-24
+628,754,Pouco conteúdo,2024-10-31
+629,181,Muito caro,2025-01-22
+630,74,Muito caro,2023-02-19
+631,531,Muito caro,2022-09-10
+632,623,Não usa mais,2023-03-30
+633,427,Muito caro,2023-01-21
+634,424,Não usa mais,2024-01-18
+635,81,Não usa mais,2024-06-19
+636,121,Muito caro,2024-02-02
+637,264,Não usa mais,2022-12-28
+638,655,Problemas técnicos,2024-09-05
+639,373,Não usa mais,2024-12-29
+640,627,Muito caro,2023-06-26
+641,388,Muito caro,2025-03-09
+642,160,Muito caro,2023-02-16
+643,913,Muito caro,2025-03-13
+644,308,Não usa mais,2022-11-27
+645,522,Problemas técnicos,2022-07-16
+646,77,Problemas técnicos,2023-07-29
+647,947,Não usa mais,2023-07-21
+648,873,Muito caro,2023-03-31
+649,533,Pouco conteúdo,2023-08-12
+650,581,Problemas técnicos,2024-11-02
+651,5,Problemas técnicos,2024-10-27
+652,674,Problemas técnicos,2024-02-17
+653,388,Pouco conteúdo,2024-05-07
+654,746,Problemas técnicos,2022-09-09
+655,865,Não usa mais,2022-10-13
+656,776,Pouco conteúdo,2022-06-10
+657,399,Não usa mais,2023-05-02
+658,897,Problemas técnicos,2022-10-10
+659,727,Pouco conteúdo,2022-07-17
+660,53,Não usa mais,2022-11-28
+661,253,Muito caro,2024-06-17
+662,533,Não usa mais,2025-02-11
+663,494,Não usa mais,2024-08-29
+664,360,Problemas técnicos,2022-09-14
+665,638,Não usa mais,2025-02-06
+666,232,Problemas técnicos,2023-12-30
+667,876,Não usa mais,2023-10-01
+668,877,Pouco conteúdo,2025-04-04
+669,434,Pouco conteúdo,2022-07-03
+670,539,Pouco conteúdo,2022-10-05
+671,951,Muito caro,2023-12-11
+672,929,Não usa mais,2023-05-25
+673,869,Pouco conteúdo,2024-06-30
+674,704,Não usa mais,2024-03-13
+675,389,Pouco conteúdo,2023-10-02
+676,659,Não usa mais,2023-06-04
+677,52,Problemas técnicos,2025-05-12
+678,730,Pouco conteúdo,2024-05-14
+679,11,Problemas técnicos,2022-08-31
+680,18,Pouco conteúdo,2024-01-07
+681,667,Pouco conteúdo,2023-02-21
+682,409,Pouco conteúdo,2024-06-22
+683,82,Não usa mais,2024-11-23
+684,242,Pouco conteúdo,2024-12-18
+685,432,Muito caro,2022-06-04
+686,642,Muito caro,2022-10-23
+687,723,Não usa mais,2023-04-27
+688,249,Muito caro,2023-04-29
+689,260,Problemas técnicos,2024-03-29
+690,184,Problemas técnicos,2023-02-20
+691,476,Pouco conteúdo,2023-07-11
+692,265,Muito caro,2023-02-06
+693,468,Muito caro,2023-03-24
+694,5,Não usa mais,2024-08-04
+695,250,Não usa mais,2022-07-09
+696,717,Não usa mais,2024-02-15
+697,534,Não usa mais,2023-11-17
+698,728,Pouco conteúdo,2024-11-10
+699,108,Pouco conteúdo,2023-05-15
+700,184,Problemas técnicos,2024-03-18
+701,249,Muito caro,2023-05-06
+702,588,Pouco conteúdo,2024-11-25
+703,203,Pouco conteúdo,2024-05-25
+704,84,Pouco conteúdo,2023-08-06
+705,29,Pouco conteúdo,2023-02-09
+706,661,Não usa mais,2025-05-26
+707,770,Pouco conteúdo,2024-04-17
+708,369,Problemas técnicos,2023-01-31
+709,896,Muito caro,2022-11-30
+710,322,Pouco conteúdo,2025-05-10
+711,33,Pouco conteúdo,2025-02-21
+712,980,Pouco conteúdo,2022-10-03
+713,466,Pouco conteúdo,2024-04-03
+714,310,Pouco conteúdo,2025-01-31
+715,100,Não usa mais,2024-03-23
+716,650,Muito caro,2022-10-20
+717,944,Pouco conteúdo,2023-02-13
+718,154,Não usa mais,2023-03-30
+719,895,Problemas técnicos,2024-12-25
+720,797,Não usa mais,2024-02-23
+721,611,Pouco conteúdo,2022-07-22
+722,7,Não usa mais,2023-01-09
+723,664,Não usa mais,2023-11-10
+724,168,Não usa mais,2024-08-23
+725,828,Problemas técnicos,2022-06-24
+726,5,Pouco conteúdo,2025-04-02
+727,550,Pouco conteúdo,2024-02-12
+728,112,Pouco conteúdo,2023-03-07
+729,738,Não usa mais,2022-07-21
+730,956,Muito caro,2022-09-12
+731,526,Problemas técnicos,2025-04-07
+732,492,Muito caro,2022-08-15
+733,549,Não usa mais,2023-02-03
+734,999,Problemas técnicos,2022-10-01
+735,208,Problemas técnicos,2025-02-01
+736,347,Não usa mais,2022-10-17
+737,411,Problemas técnicos,2022-11-11
+738,675,Muito caro,2023-02-17
+739,171,Não usa mais,2022-12-12
+740,825,Muito caro,2022-10-21
+741,200,Não usa mais,2024-03-11
+742,954,Não usa mais,2024-07-15
+743,935,Não usa mais,2025-02-21
+744,56,Não usa mais,2024-05-11
+745,685,Pouco conteúdo,2024-08-02
+746,521,Pouco conteúdo,2024-11-26
+747,940,Pouco conteúdo,2023-08-02
+748,710,Pouco conteúdo,2024-06-07
+749,455,Muito caro,2022-11-19
+750,140,Problemas técnicos,2024-09-21
+751,688,Não usa mais,2025-03-08
+752,903,Problemas técnicos,2022-12-29
+753,261,Pouco conteúdo,2024-12-24
+754,440,Muito caro,2024-04-08
+755,176,Problemas técnicos,2024-12-28
+756,419,Problemas técnicos,2025-05-19
+757,218,Não usa mais,2024-05-17
+758,480,Pouco conteúdo,2025-02-17
+759,643,Pouco conteúdo,2023-04-04
+760,168,Problemas técnicos,2023-03-10
+761,513,Não usa mais,2024-06-20
+762,43,Problemas técnicos,2024-03-18
+763,985,Problemas técnicos,2024-12-28
+764,807,Muito caro,2023-10-17
+765,997,Muito caro,2024-09-21
+766,34,Não usa mais,2025-03-01
+767,705,Não usa mais,2022-08-06
+768,399,Pouco conteúdo,2024-10-05
+769,873,Pouco conteúdo,2024-11-23
+770,792,Pouco conteúdo,2022-11-20
+771,294,Não usa mais,2023-02-19
+772,935,Problemas técnicos,2024-02-13
+773,656,Problemas técnicos,2025-05-27
+774,929,Não usa mais,2025-03-08
+775,435,Problemas técnicos,2023-03-16
+776,229,Problemas técnicos,2023-07-06
+777,157,Problemas técnicos,2022-09-23
+778,534,Não usa mais,2024-04-30
+779,231,Não usa mais,2024-01-04
+780,20,Pouco conteúdo,2024-10-24
+781,82,Problemas técnicos,2024-07-28
+782,239,Pouco conteúdo,2023-03-28
+783,71,Muito caro,2025-04-24
+784,19,Problemas técnicos,2023-08-21
+785,261,Pouco conteúdo,2023-09-26
+786,707,Muito caro,2024-04-23
+787,890,Problemas técnicos,2024-11-12
+788,230,Não usa mais,2024-04-28
+789,486,Muito caro,2024-08-02
+790,611,Problemas técnicos,2023-11-16
+791,603,Muito caro,2025-05-25
+792,470,Pouco conteúdo,2022-10-11
+793,100,Pouco conteúdo,2022-11-29
+794,422,Problemas técnicos,2023-06-19
+795,893,Muito caro,2025-01-02
+796,74,Muito caro,2024-01-23
+797,195,Não usa mais,2023-12-15
+798,204,Pouco conteúdo,2024-01-05
+799,834,Muito caro,2023-07-30
+800,436,Não usa mais,2023-06-13
+801,187,Problemas técnicos,2024-08-06
+802,495,Muito caro,2023-09-16
+803,93,Não usa mais,2023-03-20
+804,454,Problemas técnicos,2025-05-01
+805,860,Não usa mais,2024-11-15
+806,379,Pouco conteúdo,2023-07-13
+807,266,Muito caro,2023-06-01
+808,515,Pouco conteúdo,2022-10-05
+809,526,Não usa mais,2025-05-02
+810,456,Muito caro,2024-03-31
+811,40,Não usa mais,2024-01-30
+812,830,Muito caro,2024-08-23
+813,496,Pouco conteúdo,2023-02-02
+814,215,Muito caro,2024-08-02
+815,277,Problemas técnicos,2025-03-12
+816,350,Muito caro,2025-02-28
+817,729,Problemas técnicos,2024-01-04
+818,673,Problemas técnicos,2024-05-25
+819,650,Não usa mais,2024-03-18
+820,850,Não usa mais,2023-03-24
+821,903,Muito caro,2024-12-05
+822,751,Problemas técnicos,2025-02-27
+823,990,Não usa mais,2024-10-07
+824,697,Não usa mais,2024-01-22
+825,69,Pouco conteúdo,2023-10-10
+826,488,Muito caro,2023-03-22
+827,610,Muito caro,2023-09-18
+828,230,Pouco conteúdo,2025-02-26
+829,221,Pouco conteúdo,2024-09-27
+830,499,Muito caro,2023-03-07
+831,484,Problemas técnicos,2024-05-24
+832,288,Muito caro,2024-10-22
+833,180,Muito caro,2022-10-28
+834,703,Pouco conteúdo,2022-08-31
+835,730,Não usa mais,2025-04-14
+836,595,Muito caro,2023-01-23
+837,625,Não usa mais,2022-06-21
+838,918,Pouco conteúdo,2024-11-09
+839,387,Problemas técnicos,2023-10-13
+840,862,Pouco conteúdo,2024-10-16
+841,154,Problemas técnicos,2024-04-30
+842,70,Pouco conteúdo,2023-10-05
+843,514,Não usa mais,2022-10-29
+844,796,Pouco conteúdo,2024-06-16
+845,175,Pouco conteúdo,2024-11-28
+846,37,Não usa mais,2022-07-28
+847,978,Não usa mais,2025-01-09
+848,930,Problemas técnicos,2024-02-18
+849,105,Muito caro,2025-01-10
+850,884,Não usa mais,2024-01-31
+851,554,Não usa mais,2023-06-16
+852,202,Muito caro,2023-02-21
+853,483,Muito caro,2023-05-07
+854,954,Muito caro,2022-08-17
+855,921,Muito caro,2023-09-20
+856,927,Muito caro,2024-02-24
+857,765,Muito caro,2023-11-02
+858,294,Problemas técnicos,2023-11-12
+859,973,Pouco conteúdo,2025-02-05
+860,314,Muito caro,2023-07-13
+861,814,Muito caro,2024-10-01
+862,768,Muito caro,2025-05-12
+863,633,Pouco conteúdo,2022-06-09
+864,748,Pouco conteúdo,2024-08-07
+865,751,Muito caro,2023-01-08
+866,82,Não usa mais,2024-02-05
+867,452,Muito caro,2023-10-21
+868,812,Não usa mais,2024-04-27
+869,566,Não usa mais,2025-01-12
+870,842,Não usa mais,2024-05-15
+871,369,Não usa mais,2024-04-24
+872,903,Problemas técnicos,2024-09-09
+873,496,Pouco conteúdo,2023-04-20
+874,540,Problemas técnicos,2023-05-25
+875,691,Problemas técnicos,2023-10-17
+876,482,Não usa mais,2024-11-25
+877,708,Muito caro,2025-02-20
+878,942,Muito caro,2023-09-20
+879,677,Problemas técnicos,2024-08-14
+880,517,Não usa mais,2022-11-25
+881,113,Problemas técnicos,2024-08-07
+882,607,Pouco conteúdo,2024-04-27
+883,622,Problemas técnicos,2025-03-15
+884,447,Problemas técnicos,2024-04-24
+885,299,Pouco conteúdo,2024-07-25
+886,983,Muito caro,2022-09-25
+887,782,Não usa mais,2023-06-22
+888,913,Muito caro,2025-05-01
+889,765,Muito caro,2023-09-17
+890,535,Pouco conteúdo,2023-01-17
+891,929,Não usa mais,2024-08-11
+892,345,Não usa mais,2025-03-03
+893,339,Muito caro,2024-04-05
+894,993,Não usa mais,2023-12-10
+895,489,Problemas técnicos,2023-06-12
+896,839,Pouco conteúdo,2024-08-21
+897,70,Pouco conteúdo,2024-12-18
+898,588,Problemas técnicos,2022-08-20
+899,725,Não usa mais,2022-07-02
+900,970,Problemas técnicos,2023-05-28
+901,719,Problemas técnicos,2023-02-09
+902,870,Muito caro,2023-05-31
+903,504,Problemas técnicos,2022-10-17
+904,484,Não usa mais,2023-10-31
+905,207,Pouco conteúdo,2024-09-10
+906,943,Problemas técnicos,2025-02-10
+907,754,Não usa mais,2023-11-07
+908,744,Problemas técnicos,2024-03-14
+909,791,Pouco conteúdo,2025-03-08
+910,344,Problemas técnicos,2024-04-17
+911,848,Não usa mais,2025-01-24
+912,759,Pouco conteúdo,2025-01-14
+913,690,Muito caro,2024-12-16
+914,679,Problemas técnicos,2022-11-06
+915,831,Não usa mais,2024-08-19
+916,156,Pouco conteúdo,2025-03-24
+917,559,Muito caro,2024-05-11
+918,933,Pouco conteúdo,2024-03-18
+919,391,Problemas técnicos,2025-02-21
+920,87,Pouco conteúdo,2022-07-02
+921,640,Não usa mais,2022-07-18
+922,224,Pouco conteúdo,2024-01-16
+923,725,Muito caro,2024-01-02
+924,881,Não usa mais,2024-06-25
+925,625,Pouco conteúdo,2023-07-21
+926,311,Muito caro,2024-12-21
+927,12,Pouco conteúdo,2024-11-09
+928,694,Muito caro,2024-03-25
+929,137,Não usa mais,2023-11-25
+930,520,Não usa mais,2024-09-23
+931,375,Não usa mais,2023-01-31
+932,786,Muito caro,2023-06-27
+933,825,Não usa mais,2022-12-20
+934,11,Pouco conteúdo,2023-06-26
+935,341,Pouco conteúdo,2024-10-02
+936,72,Não usa mais,2023-04-28
+937,47,Não usa mais,2024-01-08
+938,69,Problemas técnicos,2024-09-08
+939,464,Pouco conteúdo,2022-06-10
+940,872,Pouco conteúdo,2022-06-04
+941,220,Problemas técnicos,2024-02-21
+942,175,Não usa mais,2024-03-05
+943,416,Problemas técnicos,2025-04-04
+944,247,Problemas técnicos,2025-04-04
+945,779,Problemas técnicos,2025-04-06
+946,566,Problemas técnicos,2024-03-16
+947,976,Não usa mais,2024-10-06
+948,85,Muito caro,2023-05-06
+949,243,Muito caro,2023-10-21
+950,540,Pouco conteúdo,2022-07-13
+951,404,Pouco conteúdo,2024-06-21
+952,353,Pouco conteúdo,2024-01-29
+953,675,Pouco conteúdo,2023-06-05
+954,200,Muito caro,2024-07-09
+955,491,Pouco conteúdo,2024-10-17
+956,935,Muito caro,2025-01-22
+957,348,Problemas técnicos,2023-04-20
+958,181,Não usa mais,2023-02-26
+959,846,Problemas técnicos,2023-04-18
+960,567,Não usa mais,2024-09-14
+961,996,Muito caro,2023-01-05
+962,542,Não usa mais,2022-11-17
+963,61,Não usa mais,2024-11-25
+964,775,Problemas técnicos,2023-04-15
+965,533,Problemas técnicos,2023-12-08
+966,493,Não usa mais,2023-03-10
+967,167,Muito caro,2023-01-08
+968,341,Pouco conteúdo,2023-04-13
+969,30,Não usa mais,2023-02-09
+970,297,Muito caro,2024-03-29
+971,77,Não usa mais,2023-04-20
+972,903,Muito caro,2023-09-30
+973,715,Problemas técnicos,2024-06-11
+974,953,Não usa mais,2023-08-16
+975,462,Não usa mais,2025-04-10
+976,941,Não usa mais,2024-06-11
+977,768,Não usa mais,2023-08-26
+978,970,Muito caro,2025-01-03
+979,586,Não usa mais,2022-07-09
+980,299,Muito caro,2022-12-10
+981,409,Problemas técnicos,2024-04-04
+982,515,Pouco conteúdo,2023-05-29
+983,163,Pouco conteúdo,2025-04-25
+984,445,Pouco conteúdo,2024-07-31
+985,523,Problemas técnicos,2024-06-10
+986,5,Pouco conteúdo,2023-03-15
+987,250,Pouco conteúdo,2024-05-31
+988,346,Não usa mais,2025-03-28
+989,876,Problemas técnicos,2022-10-29
+990,512,Pouco conteúdo,2023-08-10
+991,215,Pouco conteúdo,2025-02-24
+992,142,Pouco conteúdo,2025-05-03
+993,874,Problemas técnicos,2024-05-03
+994,460,Problemas técnicos,2024-03-20
+995,839,Não usa mais,2024-03-15
+996,996,Não usa mais,2023-10-26
+997,478,Muito caro,2025-01-10
+998,317,Muito caro,2022-12-01
+999,864,Problemas técnicos,2022-07-05
+1000,283,Não usa mais,2023-05-08
