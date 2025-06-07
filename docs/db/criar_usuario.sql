@@ -1,0 +1,3 @@
+CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'user123';
+GRANT ALL PRIVILEGES ON pipelinestreaming.* TO 'user'@'%';
+FLUSH PRIVILEGES;
