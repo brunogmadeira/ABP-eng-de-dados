@@ -1,4 +1,3 @@
-
 services:
   mysql:
     image: mysql:8.0
@@ -31,20 +30,20 @@ services:
 
 volumes:
   mysql_data: {}
+
   arquivos_csv:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: "C:/Users/Joaop/Documents/ABP-eng-de-dados/popular dados/arquivos csv"
+      device: ./popular_dados/arquivos_csv
 
   sql_scripts:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: "C:/Users/Joaop/Documents/ABP-eng-de-dados/docs/db"
-
+      device: ./docs/db
 
 networks:
   app-network:
