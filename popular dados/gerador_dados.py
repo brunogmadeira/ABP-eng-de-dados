@@ -6,7 +6,7 @@ import os
 fake = Faker('pt_BR')
 
 # Caminho completo da pasta onde salvar
-diretorio = r"C:\Users\Joaop\Documents\ABP-eng-de-dados\popular dados\arquivos csv"
+diretorio = os.path.abspath(os.path.join('popular_dados', 'arquivos_csv'))
 
 # Garante que a pasta existe, se não cria
 os.makedirs(diretorio, exist_ok=True)

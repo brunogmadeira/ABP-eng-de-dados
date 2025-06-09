@@ -1,0 +1,50 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql8
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: pipelinestreaming
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user123
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - arquivos_csv:/arquivos_csv
+      - sql_scripts:/sqlfiles
+    command: --local-infile=1 --secure-file-priv=""
+    networks:
+      - app-network
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+volumes:
+  mysql_data: {}
+
+  arquivos_csv:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./popular_dados/arquivos_csv
+
+  sql_scripts:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./docs/db
+
+networks:
+  app-network:
+    driver: bridge
