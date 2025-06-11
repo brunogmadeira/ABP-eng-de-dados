@@ -18,6 +18,7 @@ properties = {
     "driver": "com.mysql.cj.jdbc.Driver"
 }
 
+
 id_colunas = {
     "avaliacoes": "id_avaliacao",
     "planos": "id_plano",
