@@ -14,8 +14,10 @@ services:
     command: --local-infile=1 --secure-file-priv=""
     volumes:
       - mysql_data:/var/lib/mysql
-      - arquivos_csv:/arquivos_csv
       - sql_scripts:/sqlfiles
+      - ./popular_dados/arquivos_csv:/arquivos_csv
+      - ./docs/db/script_alimentar_tabelas.sql:/docker-entrypoint-initdb.d/init.sql
+
     networks:
       - app-network
 
