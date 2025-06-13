@@ -1,46 +1,46 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
-LOAD DATA INFILE '/arquivos_csv/planos.csv'
+LOAD DATA INFILE '/data/planos.csv'
 INTO TABLE planos
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE '/arquivos_csv/usuarios.csv'
+LOAD DATA INFILE '/data/usuarios.csv'
 INTO TABLE usuarios
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE '/arquivos_csv/dispositivos.csv'
+LOAD DATA INFILE '/data/dispositivos.csv'
 INTO TABLE dispositivos
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE '/arquivos_csv/generos.csv'
+LOAD DATA INFILE '/data/generos.csv'
 INTO TABLE generos
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE '/arquivos_csv/videos.csv'
+LOAD DATA INFILE '/data/videos.csv'
 INTO TABLE videos
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE '/arquivos_csv/pagamentos.csv'
+LOAD DATA INFILE '/data/pagamentos.csv'
 INTO TABLE pagamentos
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE '/arquivos_csv/cancelamentos.csv'
+LOAD DATA INFILE '/data/cancelamentos.csv'
 INTO TABLE cancelamentos
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE '/arquivos_csv/eventos.csv'
+LOAD DATA INFILE '/data/eventos.csv'
 INTO TABLE eventos
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE '/arquivos_csv/favoritos.csv'
+LOAD DATA INFILE '/data/favoritos.csv'
 INTO TABLE favoritos
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE '/arquivos_csv/avaliacoes.csv'
+LOAD DATA INFILE '/data/avaliacoes.csv'
 INTO TABLE avaliacoes
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE '/arquivos_csv/visualizacoes.csv'
+LOAD DATA INFILE '/data/visualizacoes.csv'
 INTO TABLE visualizacoes
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 

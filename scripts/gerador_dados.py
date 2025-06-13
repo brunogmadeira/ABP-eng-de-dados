@@ -6,7 +6,7 @@ import os
 fake = Faker('pt_BR')
 
 # Caminho completo da pasta onde salvar
-diretorio = os.path.abspath(os.path.join('popular_dados', 'arquivos_csv'))
+diretorio = r'.\data'
 
 # Garante que a pasta existe, se não cria
 os.makedirs(diretorio, exist_ok=True)
@@ -22,7 +22,7 @@ df_planos = pd.DataFrame({
 
 # ------------------ Usuários ------------------
 usuarios = []
-for i in range(1, 1001):
+for i in range(1, 50001):
     usuarios.append({
         'id_usuario': i,
         'nome': fake.name(),
@@ -40,7 +40,7 @@ df_generos = pd.DataFrame({
 
 # ------------------ Vídeos ------------------
 videos = []
-for i in range(1, 5001):
+for i in range(1, 20001):
     videos.append({
         'id_video': i,
         'titulo': fake.sentence(nb_words=3),
@@ -51,7 +51,7 @@ df_videos = pd.DataFrame(videos)
 
 # ------------------ Visualizações ------------------
 visualizacoes = []
-for i in range(1, 20001):
+for i in range(1, 50001):
     visualizacoes.append({
         'id_visualizacao': i,
         'id_usuario': random.randint(1, 1000),
@@ -62,7 +62,7 @@ df_visualizacoes = pd.DataFrame(visualizacoes)
 
 # ------------------ Avaliações ------------------
 avaliacoes = []
-for i in range(1, 10001):
+for i in range(1, 30001):
     avaliacoes.append({
         'id_avaliacao': i,
         'id_usuario': random.randint(1, 1000),
@@ -74,7 +74,7 @@ df_avaliacoes = pd.DataFrame(avaliacoes)
 
 # ------------------ Favoritos ------------------
 favoritos = []
-for i in range(1, 10001):
+for i in range(1, 20001):
     favoritos.append({
         'id_favorito': i,
         'id_usuario': random.randint(1, 1000),
@@ -87,7 +87,7 @@ df_favoritos = pd.DataFrame(favoritos)
 tipos = ['Smartphone', 'SmartTV', 'Tablet', 'Notebook']
 sistemas = ['Android', 'iOS', 'Windows', 'Linux']
 dispositivos = []
-for i in range(1, 2001):
+for i in range(1, 50001):
     dispositivos.append({
         'id_dispositivo': i,
         'id_usuario': random.randint(1, 1000),
@@ -99,7 +99,7 @@ df_dispositivos = pd.DataFrame(dispositivos)
 # ------------------ Eventos ------------------
 acoes = ['login', 'logout', 'play', 'pause', 'like', 'dislike']
 eventos = []
-for i in range(1, 10001):
+for i in range(1, 30001):
     eventos.append({
         'id_evento': i,
         'id_usuario': random.randint(1, 1000),
@@ -110,7 +110,7 @@ df_eventos = pd.DataFrame(eventos)
 
 # ------------------ Pagamentos ------------------
 pagamentos = []
-for i in range(1, 5001):
+for i in range(1, 40001):
     pagamentos.append({
         'id_pagamento': i,
         'id_usuario': random.randint(1, 1000),
@@ -122,7 +122,7 @@ df_pagamentos = pd.DataFrame(pagamentos)
 # ------------------ Cancelamentos ------------------
 motivos = ['Problemas técnicos', 'Muito caro', 'Pouco conteúdo', 'Não usa mais']
 cancelamentos = []
-for i in range(1, 1001):
+for i in range(1, 10001):
     cancelamentos.append({
         'id_cancelamento': i,
         'id_usuario': random.randint(1, 1000),
