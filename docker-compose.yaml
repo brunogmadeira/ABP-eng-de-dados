@@ -14,25 +14,19 @@ services:
     command: --local-infile=1 --secure-file-priv=""
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./scripts:/docker-entrypoint-initdb.d
+      - sql_scripts:/sqlfiles
       - ./data:/arquivos_csv
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uuser", "-puser123"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
+      - ./scripts/script_alimentar_tabelas.sql:/docker-entrypoint-initdb.d/init.sql
+
     networks:
       - app-network
 
   adminer:
-    image: adminer:4.8.1
+    image: adminer
     container_name: adminer
     restart: always
     ports:
       - "8080:8080"
-    depends_on:
-      mysql:
-        condition: service_healthy
     networks:
       - app-network
 
@@ -40,8 +34,8 @@ services:
     image: minio/minio
     container_name: minio
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "9000:9000"   # API
+      - "9001:9001"   # Console
     environment:
       MINIO_ROOT_USER: minio
       MINIO_ROOT_PASSWORD: minio123
@@ -59,7 +53,7 @@ services:
       - HOME=/tmp
     ports:
       - "7077:7077"
-      - "8081:8080"
+      - "8081:8080"  # Spark UI
     volumes:
       - ./spark:/scripts
     depends_on:
