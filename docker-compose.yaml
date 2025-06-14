@@ -16,7 +16,7 @@ services:
       - mysql_data:/var/lib/mysql
       - sql_scripts:/sqlfiles
       - ./data:/arquivos_csv
-      - ./scripts/script_alimentar_tabelas.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./scripts/02_alimentar_tabelas.sql:/docker-entrypoint-initdb.d/init.sql
 
     networks:
       - app-network
