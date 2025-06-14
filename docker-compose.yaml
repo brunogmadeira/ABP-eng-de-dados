@@ -26,7 +26,7 @@ services:
     container_name: adminer
     restart: always
     ports:
-      - "8080:8080"
+      - "8090:8080"
     networks:
       - app-network
 
@@ -95,3 +95,4 @@ volumes:
 networks:
   app-network:
     driver: bridge
+    name: app-network
