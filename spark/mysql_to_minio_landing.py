@@ -1,8 +1,7 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
+from pyspark.sql.functions import col, current_date
 import logging
 
-# configuração de log
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 try:
@@ -19,7 +18,8 @@ try:
 
     logging.info("Sessão Spark iniciada com sucesso.")
 
-    jdbc_url = "jdbc:mysql://mysql8:3306/pipelinestreaming"
+    # usando 'mysql' como hostname para conectar-se ao serviço MySQL
+    jdbc_url = "jdbc:mysql://mysql:3306/pipelinestreaming"
     properties = {
         "user": "user",
         "password": "user123",
@@ -73,7 +73,6 @@ try:
                     properties=properties
                 )
 
-            # adicionando uma coluna de data de ingestão
             df = df.withColumn("data_ingestao", current_date())
 
             df.write.mode("overwrite").parquet(f"s3a://landing/{tabela}/")
@@ -87,6 +86,6 @@ except Exception as e:
     logging.error(f"Erro geral no script: {e}", exc_info=True)
 
 finally:
-    if 'spark' in locals(): # verifica se a sessão Spark foi criada antes de tentar parar ela
+    if 'spark' in locals():
         spark.stop()
         logging.info("Sessão Spark finalizada.")
