@@ -16,7 +16,6 @@ services:
       - mysql_data:/var/lib/mysql
       - sql_scripts:/sqlfiles
       - ./data:/arquivos_csv
-      - ./scripts/02_alimentar_tabelas.sql:/docker-entrypoint-initdb.d/init.sql
 
     networks:
       - app-network
@@ -26,7 +25,7 @@ services:
     container_name: adminer
     restart: always
     ports:
-      - "8090:8080"
+      - "8090:8080" # porta alterada para 8090 para evitar conflitos com Airflow
     networks:
       - app-network
 
