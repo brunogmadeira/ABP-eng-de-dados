@@ -16,6 +16,7 @@ services:
       - mysql_data:/var/lib/mysql
       - sql_scripts:/sqlfiles
       - ./data:/arquivos_csv
+      - ./scripts:/docker-entrypoint-initdb.d # mapeando pasta 'scripts' para inicialização do mySQL
 
     networks:
       - app-network
