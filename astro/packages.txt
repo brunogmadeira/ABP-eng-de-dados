@@ -1,0 +1,4 @@
+iputils-ping
+netcat-openbsd
+telnet
+default-mysql-client
