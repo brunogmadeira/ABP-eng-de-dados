@@ -1,0 +1,62 @@
+# mkdocs.yml
+site_name: Meu Projeto de Exemplo
+site_description: Documentação de exemplo com MkDocs
+site_author: Seu Nome
+site_url: https://meusite.github.io/
+
+# Repository
+repo_name: usuario/meu-projeto
+repo_url: https://github.com/brunogmadeira/ABP-eng-de-dados.git
+
+# Configuration
+theme:
+  name: material
+  language: pt
+  palette:
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Modo escuro
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Modo claro
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+# Navigation
+nav:
+  - Home: index.md
+  - Sobre: about.md
+  - Guias:
+    - Instalação: guides/installation.md
+    - Configuração: guides/configuration.md
+  - API: api.md
+
+# Extensions
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - toc:
+      permalink: true
+
+# Plugins
+plugins:
+  - search:
+      lang: pt
