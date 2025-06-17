@@ -1,0 +1,9 @@
+airflow:
+  connections:
+    - conn_id: mysql_conn
+      conn_type: mysql 
+      conn_host: mysql8 
+      conn_port: 3306
+      conn_login: user
+      conn_password: user123
+      conn_schema: pipelinestreaming
