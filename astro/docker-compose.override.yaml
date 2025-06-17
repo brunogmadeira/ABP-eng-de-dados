@@ -1,0 +1,35 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: astro_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: pipelinestreaming
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user123
+      MYSQL_ROOT_HOST: '%'
+    command: --local-infile=1 --secure-file-priv=""
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./data:/arquivos_csv
+      - ./scripts:/docker-entrypoint-initdb.d
+
+  minio:
+    image: minio/minio
+    container_name: astro_minio
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+
+volumes:
+  mysql_data:
+  minio_data:
