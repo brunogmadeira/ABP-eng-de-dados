@@ -20,6 +20,8 @@ services:
 
     networks:
       - app-network
+      - astro_default
+      - astro_ab5377_airflow
 
   adminer:
     image: adminer
@@ -29,6 +31,8 @@ services:
       - "8090:8080" # porta alterada para 8090 para evitar conflitos com Airflow
     networks:
       - app-network
+      - astro_default
+      - astro_ab5377_airflow
 
   minio:
     image: minio/minio
@@ -44,6 +48,8 @@ services:
       - minio_data:/data
     networks:
       - app-network
+      - astro_default
+      - astro_ab5377_airflow
 
   spark-master:
     image: bitnami/spark:latest
@@ -96,3 +102,9 @@ networks:
   app-network:
     driver: bridge
     name: app-network
+
+  astro_default:
+    external: true
+
+  astro_ab5377_airflow:
+    external: true

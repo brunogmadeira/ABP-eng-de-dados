@@ -2,4 +2,3 @@ iputils-ping
 netcat-openbsd
 telnet
 default-mysql-client
-apache-airflow-providers-apache-spark
