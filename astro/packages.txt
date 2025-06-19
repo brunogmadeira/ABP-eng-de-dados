@@ -2,3 +2,8 @@ iputils-ping
 netcat-openbsd
 telnet
 default-mysql-client
+build-essential
+freetds-dev
+libkrb5-dev
+unixodbc
+unixodbc-dev
