@@ -44,7 +44,7 @@ logger.info(f"Bronze Bucket: {MINIO_BRONZE_BUCKET}")
 logger.info(f"Silver Bucket: {MINIO_SILVER_BUCKET}")
 logger.info(f"Data Folder: {DATA_FOLDER}")
 
-# Função para criar sessão Spark com resiliência
+# Função para criar sessão Spark
 def create_spark_session():
     # Versões compatíveis testadas
     DELTA_VERSION = "2.4.0"

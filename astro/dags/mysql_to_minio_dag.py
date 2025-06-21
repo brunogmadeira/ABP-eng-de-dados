@@ -17,7 +17,6 @@ MINIO_CONFIG = {
 
 TABLES = ['avaliacoes', 'cancelamentos', 'dispositivos', 'eventos', 'favoritos', 'generos', 'pagamentos', 'planos', 'usuarios', 'videos', 'visualizacoes'] 
 
-# 🔍 Função genérica para extrair e salvar
 def extract_and_upload(table_name: str, **context):
     hook = MySqlHook(mysql_conn_id="mysql_conn")
     conn = hook.get_conn()
@@ -44,7 +43,6 @@ with DAG(
     tags=['mysql', 'minio']
 ) as dag:
 
-    # 🔁 Uma task para cada tabela
     for table in TABLES:
         PythonOperator(
             task_id=f'process_{table}',
