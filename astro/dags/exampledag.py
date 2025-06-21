@@ -36,11 +36,9 @@ import requests
     tags=["example"],
 )
 def example_astronauts():
-    # Define tasks
     @task(
-        # Define a dataset outlet for the task. This can be used to schedule downstream DAGs when this task has run.
         outlets=[Asset("current_astronauts")]
-    )  # Define that this task updates the `current_astronauts` Dataset
+    )
     def get_astronauts(**context) -> list[dict]:
         """
         This task uses the requests library to retrieve a list of Astronauts
@@ -89,12 +87,9 @@ def example_astronauts():
 
         print(f"{name} is currently in space flying on the {craft}! {greeting}")
 
-    # Use dynamic task mapping to run the print_astronaut_craft task for each
-    # Astronaut in space
     print_astronaut_craft.partial(greeting="Hello! :)").expand(
-        person_in_space=get_astronauts()  # Define dependencies using TaskFlow API syntax
+        person_in_space=get_astronauts()
     )
 
 
-# Instantiate the DAG
 example_astronauts()
