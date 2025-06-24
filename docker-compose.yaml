@@ -1,3 +1,5 @@
+version: '3.8' 
+
 services:
   mysql:
     image: mysql:8.0
@@ -14,31 +16,26 @@ services:
     command: --local-infile=1 --secure-file-priv=""
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./data:/arquivos_csv
-      - ./scripts:/docker-entrypoint-initdb.d # mapeando pasta 'scripts' para inicialização do mySQL
-
+      - ./data:/arquivos_csv 
+      - ./scripts:/docker-entrypoint-initdb.d
     networks:
-      - app-network
-      - astro_default
-      - astro_ab5377_airflow
+      - app-network 
 
   adminer:
     image: adminer
     container_name: adminer
     restart: always
     ports:
-      - "8090:8080" # porta alterada para 8090 para evitar conflitos com Airflow
+      - "8090:8080"
     networks:
-      - app-network
-      - astro_default
-      - astro_ab5377_airflow
+      - app-network 
 
   minio:
     image: minio/minio
     container_name: minio
     ports:
-      - "9000:9000"   # API
-      - "9001:9001"   # Console
+      - "9000:9000"
+      - "9001:9001"
     environment:
       MINIO_ROOT_USER: minio
       MINIO_ROOT_PASSWORD: minio123
@@ -46,9 +43,7 @@ services:
     volumes:
       - minio_data:/data
     networks:
-      - app-network
-      - astro_default
-      - astro_ab5377_airflow
+      - app-network 
 
   spark-master:
     image: bitnami/spark:latest
@@ -58,9 +53,10 @@ services:
       - HOME=/tmp
     ports:
       - "7077:7077"
-      - "8081:8080"  # Spark UI
+      - "8081:8080" 
     volumes:
       - ./spark:/scripts
+      - ./data:/data_input_landing 
     depends_on:
       - minio
       - mysql
@@ -78,32 +74,27 @@ services:
       - spark-master
     volumes:
       - ./spark:/scripts
+      - ./data:/data_input_landing 
     networks:
       - app-network
 
 volumes:
   mysql_data: {}
+  minio_data: {}
   arquivos_csv:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ./data
+      device: ./data 
   sql_scripts:
     driver: local
     driver_opts:
       type: none
       o: bind
       device: ./scripts
-  minio_data: {}
 
 networks:
   app-network:
     driver: bridge
-    name: app-network
-
-  astro_default:
-    external: true
-
-  astro_ab5377_airflow:
-    external: true
+    name: app-network 
