@@ -4,6 +4,10 @@
 
 Este projeto implementa uma solução completa de engenharia de dados, abrangendo desde a ingestão e transformação de dados até a criação de dashboards interativos para análise e monitoramento. A arquitetura foi desenvolvida utilizando tecnologias modernas de big data, incluindo Apache Spark, Data Lakes e ferramentas de visualização avançadas. A temática escolhida — plataforma de streaming de vídeo — permite trabalhar com dados realistas e ricos em volume e variedade.
 
+## 📐 Modelo Entidade-Relacionamento
+
+![representacao_arquiteura](assets/modelo_er.jpeg)
+
 ## 🏗️ Arquitetura da Solução
 
 O projeto segue uma arquitetura de **Data Lake** com processamento em camadas:
