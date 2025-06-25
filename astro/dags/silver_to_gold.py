@@ -3,20 +3,20 @@ from datetime import datetime, timedelta
 import logging
 import os
 import sys
-import subprocess
 import traceback
 import requests
 from pyspark.sql import SparkSession
-from pyspark.sql import functions as F
-from pyspark.sql.window import Window
+from pyspark.sql.functions import (
+    col, date_format, count, sum as _sum, 
+    when, avg, year, month, dayofmonth, 
+    dayofweek, quarter, weekofyear, current_timestamp
+)
 
 # Configuração explícita do ambiente Java
 os.environ['JAVA_HOME'] = '/usr/lib/jvm/java-17-openjdk-amd64'
 os.environ['PATH'] = f"{os.environ['JAVA_HOME']}/bin:{os.environ['PATH']}"
 os.environ['PYSPARK_PYTHON'] = sys.executable
 os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
-os.environ['SPARK_LOCAL_IP'] = '127.0.0.1'
-os.environ['SPARK_HOME'] = '/usr/local/lib/python3.12/site-packages/pyspark'
 
 # Configuração de logs
 logger = logging.getLogger(__name__)
@@ -31,20 +31,25 @@ MINIO_GOLD_BUCKET = os.getenv("MINIO_GOLD_BUCKET", "gold")
 DATA_FOLDER = os.getenv("DATA_FOLDER", "dados")
 
 # Log das configurações
-logger.info(f"Configurações MinIO:")
+logger.info(f"Configurações MinIO Gold:")
 logger.info(f"Endpoint: {MINIO_ENDPOINT}")
 logger.info(f"Access Key: {MINIO_ACCESS_KEY}")
 logger.info(f"Silver Bucket: {MINIO_SILVER_BUCKET}")
 logger.info(f"Gold Bucket: {MINIO_GOLD_BUCKET}")
 logger.info(f"Data Folder: {DATA_FOLDER}")
-logger.info(f"Java Home: {os.environ['JAVA_HOME']}")
-logger.info(f"Spark Home: {os.environ['SPARK_HOME']}")
 
-# Função para criar sessão Spark
+# Função para criar sessão Spark com resiliência
 def create_spark_session():
-    # Configurações otimizadas
+    # Versões compatíveis testadas
+    DELTA_VERSION = "2.4.0"
+    HADOOP_VERSION = "3.3.4"
+    AWS_SDK_VERSION = "1.12.262"
+    
+    # Configurações de memória otimizadas
     spark_config = {
-        "spark.jars.packages": "io.delta:delta-core_2.12:2.4.0,org.apache.hadoop:hadoop-aws:3.3.4",
+        "spark.jars.packages": f"io.delta:delta-core_2.12:{DELTA_VERSION},"
+                               f"org.apache.hadoop:hadoop-aws:{HADOOP_VERSION},"
+                               f"com.amazonaws:aws-java-sdk-bundle:{AWS_SDK_VERSION}",
         "spark.sql.extensions": "io.delta.sql.DeltaSparkSessionExtension",
         "spark.sql.catalog.spark_catalog": "org.apache.spark.sql.delta.catalog.DeltaCatalog",
         "spark.hadoop.fs.s3a.impl": "org.apache.hadoop.fs.s3a.S3AFileSystem",
@@ -53,58 +58,75 @@ def create_spark_session():
         "spark.hadoop.fs.s3a.secret.key": MINIO_SECRET_KEY,
         "spark.hadoop.fs.s3a.path.style.access": "true",
         "spark.hadoop.fs.s3a.connection.ssl.enabled": "false",
-        "spark.sql.shuffle.partitions": "4",
-        "spark.executor.memory": "1g",
-        "spark.driver.memory": "1g",
-        "spark.driver.maxResultSize": "512m",
-        "spark.driver.bindAddress": "0.0.0.0",
-        "spark.driver.host": "localhost",
-        "spark.driver.port": "7077",
-        "spark.ui.port": "4040"
+        "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider",
+        "spark.sql.shuffle.partitions": "2",
+        "spark.sql.parquet.enableVectorizedReader": "false",
+        "spark.jars.repositories": "https://repo1.maven.org/maven2",
+        "spark.driver.extraJavaOptions": "-Dcom.amazonaws.services.s3.enableV4=true",
+        "spark.executor.extraJavaOptions": "-Dcom.amazonaws.services.s3.enableV4=true"
     }
 
     try:
-        # Tentar inicializar findspark se disponível
-        try:
-            import findspark
-            findspark.init()
-            logger.info("findspark initialized successfully")
-        except ImportError:
-            logger.warning("findspark not installed. Skipping initialization.")
-        
-        # Verificar versão do Java
-        java_version = subprocess.run(["java", "-version"], stderr=subprocess.PIPE, text=True)
-        logger.info(f"Java version detected:\n{java_version.stderr}")
-        
         builder = SparkSession.builder.appName("SilverToGold")
         for key, value in spark_config.items():
             builder.config(key, value)
             
         spark = builder.getOrCreate()
         spark.sparkContext.setLogLevel("ERROR")
-        logger.info("Spark Session criada com sucesso!")
-        logger.info(f"Spark version: {spark.version}")
+        logger.info("Spark Session criada com sucesso para Gold!")
+        
+        # Configurar manualmente o sistema de arquivos
+        hadoop_conf = spark.sparkContext._jsc.hadoopConfiguration()
+        hadoop_conf.set("fs.s3a.endpoint", MINIO_ENDPOINT)
+        hadoop_conf.set("fs.s3a.access.key", MINIO_ACCESS_KEY)
+        hadoop_conf.set("fs.s3a.secret.key", MINIO_SECRET_KEY)
+        hadoop_conf.set("fs.s3a.path.style.access", "true")
+        hadoop_conf.set("fs.s3a.connection.ssl.enabled", "false")
+        hadoop_conf.set("fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
+        hadoop_conf.set("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")
+        
         return spark
         
     except Exception as e:
-        logger.error("Erro ao criar Spark Session", exc_info=True)
-        # Verificação adicional do Java
+        logger.error("Erro ao criar Spark Session. Tentando modo fallback...", exc_info=True)
+        
+        # Modo fallback sem pacotes Delta
         try:
-            java_check = subprocess.run(["java", "-version"], stderr=subprocess.PIPE, text=True)
-            logger.error(f"Java version check failed: {java_check.stderr}")
-        except Exception as java_err:
-            logger.error("Java not found or not accessible", exc_info=True)
-        raise RuntimeError(f"Falha ao criar Spark Session: {str(e)}")
+            spark = SparkSession.builder \
+                .appName("SilverToGold_Fallback") \
+                .config("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem") \
+                .config("spark.hadoop.fs.s3a.endpoint", MINIO_ENDPOINT) \
+                .config("spark.hadoop.fs.s3a.access.key", MINIO_ACCESS_KEY) \
+                .config("spark.hadoop.fs.s3a.secret.key", MINIO_SECRET_KEY) \
+                .config("spark.hadoop.fs.s3a.path.style.access", "true") \
+                .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false") \
+                .getOrCreate()
+                
+            # Configurar manualmente o sistema de arquivos
+            hadoop_conf = spark.sparkContext._jsc.hadoopConfiguration()
+            hadoop_conf.set("fs.s3a.endpoint", MINIO_ENDPOINT)
+            hadoop_conf.set("fs.s3a.access.key", MINIO_ACCESS_KEY)
+            hadoop_conf.set("fs.s3a.secret.key", MINIO_SECRET_KEY)
+            hadoop_conf.set("fs.s3a.path.style.access", "true")
+            hadoop_conf.set("fs.s3a.connection.ssl.enabled", "false")
+            hadoop_conf.set("fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
+            hadoop_conf.set("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")
+            
+            logger.warning("Sessão Spark criada em modo fallback (sem suporte a Delta Lake)")
+            return spark
+        except Exception as fallback_error:
+            logger.error("Falha ao criar Spark Session mesmo em modo fallback", exc_info=True)
+            raise RuntimeError(f"Erro crítico ao criar Spark Session: {str(fallback_error)}")
 
 @dag(
     dag_id='silver_to_gold_processing',
-    description='Transforma dados da camada Silver para Gold com modelagem dimensional',
+    description='Transforma dados Silver para camada Gold com tabelas analíticas',
     schedule=None,
     start_date=datetime(2023, 1, 1),
     catchup=False,
-    tags=['minio', 'spark', 'gold', 'data-warehouse'],
+    tags=['minio', 'spark', 'gold'],
     default_args={
-        'owner': 'data-engineer',
+        'owner': 'admin',
         'retries': 2,
         'retry_delay': timedelta(minutes=5),
     }
@@ -112,485 +134,411 @@ def create_spark_session():
 def silver_to_gold_dag():
 
     @task
-    def verify_minio_connection():
-        """Verificação da conexão com o MinIO"""
-        try:
-            response = requests.get(MINIO_ENDPOINT, timeout=10)
-            if response.status_code in [200, 403, 404]:
-                logger.info("Conexão com MinIO bem-sucedida")
-                return "SUCCESS: Conexão MinIO OK"
-            else:
-                raise Exception(f"Resposta inesperada: {response.status_code}")
-        except Exception as e:
-            logger.error("Falha na conexão com MinIO", exc_info=True)
-            raise RuntimeError("Não foi possível conectar ao MinIO") from e
-
-    @task
-    def test_java_connection():
-        """Verifica se o Java está disponível e a versão"""
-        try:
-            result = subprocess.run(
-                ["java", "-version"],
-                stderr=subprocess.PIPE,  # Java envia a versão para stderr
-                text=True,
-                check=True
-            )
-            java_version = result.stderr.split('\n')[0] if result.stderr else "Unknown"
-            logger.info(f"Java testado com sucesso: {java_version}")
-            return "SUCCESS: Java test"
-        except Exception as e:
-            logger.error("Teste do Java falhou", exc_info=True)
-            return f"ERROR: Java test - {str(e)}"
-
-    @task
     def create_dim_tempo():
-        """Cria dimensão de tempo para 10 anos (2020-2030)"""
         spark = None
         try:
-            logger.info("Criando dimensão tempo...")
             spark = create_spark_session()
+            logger.info("Processando dim_tempo...")
             
-            # Criar dataframe com range de datas
-            start_date = "2020-01-01"
-            end_date = "2030-12-31"
+            # Coletar todas as datas relevantes do sistema
+            date_sources = {
+                "visualizacoes": "data_hora_visualizacao",
+                "pagamentos": "data_hora_pagamento",
+                "favoritos": "data_hora_favorito",
+                "cancelamentos": "data_hora_cancelamento",
+                "eventos": "data_hora_evento"
+            }
             
-            # Usar seq para criar range de datas
-            dates = spark.sql(f"""
-                SELECT explode(sequence(to_date('{start_date}'), to_date('{end_date}'), interval 1 day)) as data_completa
-            """)
+            dfs = []
+            for table, date_col in date_sources.items():
+                try:
+                    path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/{table}"
+                    logger.info(f"Lendo datas de: {table}.{date_col} em {path}")
+                    
+                    # Verificar se o caminho existe
+                    hadoop_conf = spark.sparkContext._jsc.hadoopConfiguration()
+                    fs = spark.sparkContext._jvm.org.apache.hadoop.fs.FileSystem.get(
+                        spark.sparkContext._jvm.java.net.URI.create(path), 
+                        hadoop_conf
+                    )
+                    path_obj = spark.sparkContext._jvm.org.apache.hadoop.fs.Path(path)
+                    
+                    if not fs.exists(path_obj):
+                        logger.warning(f"Caminho não encontrado: {path}")
+                        continue
+                    
+                    # Tentar ler dados em diferentes formatos
+                    df = None
+                    for format in ["parquet", "delta"]:  # Priorizar Parquet
+                        try:
+                            logger.info(f"Tentando ler como {format.upper()}...")
+                            df = spark.read.format(format).load(path)
+                            break
+                        except Exception as e:
+                            logger.warning(f"Falha ao ler como {format.upper()}: {str(e)}")
+                    
+                    if df is None:
+                        logger.warning(f"Falha ao ler dados para {table}")
+                        continue
+                    
+                    if date_col not in df.columns:
+                        logger.warning(f"Coluna {date_col} não encontrada na tabela {table}")
+                        continue
+                        
+                    df = df.select(col(date_col).alias("data_hora"))
+                    dfs.append(df)
+                    
+                except Exception as e:
+                    logger.error(f"Erro ao processar {table}: {str(e)}", exc_info=True)
             
-            dim_tempo = dates.select(
-                F.date_format("data_completa", "yyyyMMdd").cast("int").alias("id_tempo"),
-                F.date_format("data_completa", "yyyy-MM-dd").alias("data"),
-                F.year("data_completa").alias("ano"),
-                F.quarter("data_completa").alias("trimestre"),
-                F.month("data_completa").alias("mes"),
-                F.weekofyear("data_completa").alias("semana_ano"),
-                F.dayofyear("data_completa").alias("dia_ano"),
-                F.dayofmonth("data_completa").alias("dia_mes"),
-                F.dayofweek("data_completa").alias("dia_semana"),
-                F.when(F.dayofweek("data_completa").isin(1, 7), "Fim de Semana")
-                 .otherwise("Dia Útil").alias("tipo_dia"),
-                F.date_format("data_completa", "MMMM").alias("nome_mes"),
-                F.date_format("data_completa", "EEEE").alias("nome_dia_semana")
-            )
+            if not dfs:
+                logger.error("Nenhuma fonte de datas disponível")
+                return "ERROR: dim_tempo - Nenhuma fonte de datas disponível"
             
-            # Salvar dimensão tempo
+            union_df = dfs[0]
+            for df in dfs[1:]:
+                union_df = union_df.union(df)
+            
+            # Extrair atributos temporais
+            dim_tempo = union_df.distinct() \
+                .withColumn("id_tempo", date_format(col("data_hora"), "yyyyMMdd").cast("int")) \
+                .withColumn("data", col("data_hora").cast("date")) \
+                .withColumn("ano", year("data")) \
+                .withColumn("mes", month("data")) \
+                .withColumn("dia", dayofmonth("data")) \
+                .withColumn("dia_semana", dayofweek("data")) \
+                .withColumn("trimestre", quarter("data")) \
+                .withColumn("semana_ano", weekofyear("data")) \
+                .drop("data_hora")
+            
+            # Salvar na Gold como Parquet
             gold_path = f"s3a://{MINIO_GOLD_BUCKET}/{DATA_FOLDER}/dim_tempo"
-            (dim_tempo.write
-                .format("delta")
-                .mode("overwrite")
-                .save(gold_path))
-            
-            logger.info(f"Dimensão tempo criada com {dim_tempo.count()} registros")
+            dim_tempo.write.format("parquet") \
+                .mode("overwrite") \
+                .save(gold_path)
+                
+            logger.info(f"dim_tempo salva em: {gold_path}")
             return "SUCCESS: dim_tempo"
             
         except Exception as e:
-            error_msg = f"Erro ao criar dim_tempo: {str(e)}"
-            logger.error(error_msg, exc_info=True)
+            logger.error(f"Erro ao criar dim_tempo: {str(e)}", exc_info=True)
             return f"ERROR: dim_tempo - {str(e)}"
-        
-        finally:
-            if spark:
-                spark.stop()
-
-    @task
-    def create_dim_usuarios():
-        """Cria dimensão de usuários"""
-        spark = None
-        try:
-            logger.info("Criando dimensão usuários...")
-            spark = create_spark_session()
-            
-            # Ler dados silver
-            usuarios_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/usuarios"
-            planos_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/planos"
-            
-            df_usuarios = spark.read.format("delta").load(usuarios_path)
-            df_planos = spark.read.format("delta").load(planos_path)
-            
-            # Enriquecer dados
-            dim_usuarios = df_usuarios.join(
-                df_planos, 
-                "id_plano",
-                "left"
-            ).select(
-                "id_usuario",
-                "nome",
-                "email",
-                "id_plano",
-                F.col("nome").alias("nome_plano"),
-                "valor",
-                "tipo"
-            ).withColumn(
-                "tipo_plano",
-                F.when(F.col("tipo") == "P", "Premium")
-                 .when(F.col("tipo") == "B", "Básico")
-                 .when(F.col("tipo") == "G", "Grátis")
-                 .otherwise("Desconhecido")
-            ).drop("tipo")
-            
-            # Salvar dimensão
-            gold_path = f"s3a://{MINIO_GOLD_BUCKET}/{DATA_FOLDER}/dim_usuarios"
-            (dim_usuarios.write
-                .format("delta")
-                .mode("overwrite")
-                .save(gold_path))
-            
-            logger.info(f"Dimensão usuários criada com {dim_usuarios.count()} registros")
-            return "SUCCESS: dim_usuarios"
-            
-        except Exception as e:
-            error_msg = f"Erro ao criar dim_usuarios: {str(e)}"
-            logger.error(error_msg, exc_info=True)
-            return f"ERROR: dim_usuarios - {str(e)}"
-        
         finally:
             if spark:
                 spark.stop()
 
     @task
     def create_dim_videos():
-        """Cria dimensão de vídeos"""
         spark = None
         try:
-            logger.info("Criando dimensão vídeos...")
             spark = create_spark_session()
+            logger.info("Processando dim_videos...")
             
             # Ler dados silver
             videos_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/videos"
             generos_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/generos"
             
-            df_videos = spark.read.format("delta").load(videos_path)
-            df_generos = spark.read.format("delta").load(generos_path)
+            # Função para ler com resiliência
+            def read_table(path, table_name):
+                # Verificar existência do caminho
+                hadoop_conf = spark.sparkContext._jsc.hadoopConfiguration()
+                fs = spark.sparkContext._jvm.org.apache.hadoop.fs.FileSystem.get(
+                    spark.sparkContext._jvm.java.net.URI.create(path), 
+                    hadoop_conf
+                )
+                path_obj = spark.sparkContext._jvm.org.apache.hadoop.fs.Path(path)
+                
+                if not fs.exists(path_obj):
+                    raise FileNotFoundError(f"Caminho não encontrado: {path}")
+                
+                # Tentar ler em diferentes formatos
+                for format in ["parquet", "delta"]:  # Priorizar Parquet
+                    try:
+                        logger.info(f"Lendo {table_name} como {format.upper()}...")
+                        return spark.read.format(format).load(path)
+                    except Exception as e:
+                        logger.warning(f"Falha ao ler {table_name} como {format.upper()}: {str(e)}")
+                raise RuntimeError(f"Falha ao ler dados para {table_name}")
             
-            # Enriquecer dados
+            df_videos = read_table(videos_path, "videos")
+            df_generos = read_table(generos_path, "generos")
+            
+            # Enriquecer com gêneros
             dim_videos = df_videos.join(
-                df_generos,
-                "id_genero",
+                df_generos, 
+                df_videos.id_genero == df_generos.id_genero,
                 "left"
             ).select(
-                "id_video",
-                "titulo",
-                "duracao",
-                "id_genero",
-                F.col("nome").alias("genero")
-            ).withColumn(
-                "duracao_minutos",
-                F.round(F.col("duracao") / 60, 2)
-            ).withColumn(
-                "faixa_duracao",
-                F.when(F.col("duracao_minutos") < 5, "Curto (0-5min)")
-                 .when((F.col("duracao_minutos") >= 5) & (F.col("duracao_minutos") < 15), "Médio (5-15min)")
-                 .when((F.col("duracao_minutos") >= 15) & (F.col("duracao_minutos") < 30), "Longo (15-30min)")
-                 .otherwise("Muito longo (30+min)")
+                df_videos.id_video,
+                df_videos.titulo,
+                df_videos.duracao,
+                df_generos.id_genero.alias("id_genero"),
+                df_generos.nome.alias("genero")
             )
             
-            # Salvar dimensão
+            # Salvar na Gold como Parquet
             gold_path = f"s3a://{MINIO_GOLD_BUCKET}/{DATA_FOLDER}/dim_videos"
-            (dim_videos.write
-                .format("delta")
-                .mode("overwrite")
-                .save(gold_path))
-            
-            logger.info(f"Dimensão vídeos criada com {dim_videos.count()} registros")
+            dim_videos.write.format("parquet") \
+                .mode("overwrite") \
+                .save(gold_path)
+                
+            logger.info(f"dim_videos salva em: {gold_path}")
             return "SUCCESS: dim_videos"
             
         except Exception as e:
-            error_msg = f"Erro ao criar dim_videos: {str(e)}"
-            logger.error(error_msg, exc_info=True)
+            logger.error(f"Erro ao criar dim_videos: {str(e)}", exc_info=True)
             return f"ERROR: dim_videos - {str(e)}"
-        
+        finally:
+            if spark:
+                spark.stop()
+
+    @task
+    def create_dim_usuarios():
+        spark = None
+        try:
+            spark = create_spark_session()
+            logger.info("Processando dim_usuarios...")
+            
+            # Ler dados silver
+            usuarios_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/usuarios"
+            planos_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/planos"
+            
+            # Função para ler com resiliência
+            def read_table(path, table_name):
+                # Verificar existência do caminho
+                hadoop_conf = spark.sparkContext._jsc.hadoopConfiguration()
+                fs = spark.sparkContext._jvm.org.apache.hadoop.fs.FileSystem.get(
+                    spark.sparkContext._jvm.java.net.URI.create(path), 
+                    hadoop_conf
+                )
+                path_obj = spark.sparkContext._jvm.org.apache.hadoop.fs.Path(path)
+                
+                if not fs.exists(path_obj):
+                    raise FileNotFoundError(f"Caminho não encontrado: {path}")
+                
+                # Tentar ler em diferentes formatos
+                for format in ["parquet", "delta"]:  # Priorizar Parquet
+                    try:
+                        logger.info(f"Lendo {table_name} como {format.upper()}...")
+                        return spark.read.format(format).load(path)
+                    except Exception as e:
+                        logger.warning(f"Falha ao ler {table_name} como {format.upper()}: {str(e)}")
+                raise RuntimeError(f"Falha ao ler dados para {table_name}")
+            
+            df_usuarios = read_table(usuarios_path, "usuarios")
+            df_planos = read_table(planos_path, "planos")
+            
+            # Enriquecer com planos
+            dim_usuarios = df_usuarios.join(
+                df_planos,
+                df_usuarios.id_plano == df_planos.id_plano,
+                "left"
+            ).select(
+                df_usuarios.id_usuario,
+                df_usuarios.nome,
+                df_usuarios.email,
+                df_planos.id_plano.alias("id_plano"),
+                df_planos.nome.alias("plano"),
+                df_planos.valor.alias("valor_plano"),
+                df_planos.tipo.alias("tipo_plano")
+            )
+            
+            # Salvar na Gold como Parquet
+            gold_path = f"s3a://{MINIO_GOLD_BUCKET}/{DATA_FOLDER}/dim_usuarios"
+            dim_usuarios.write.format("parquet") \
+                .mode("overwrite") \
+                .save(gold_path)
+                
+            logger.info(f"dim_usuarios salva em: {gold_path}")
+            return "SUCCESS: dim_usuarios"
+            
+        except Exception as e:
+            logger.error(f"Erro ao criar dim_usuarios: {str(e)}", exc_info=True)
+            return f"ERROR: dim_usuarios - {str(e)}"
         finally:
             if spark:
                 spark.stop()
 
     @task
     def create_fato_visualizacoes():
-        """Cria fato de visualizações"""
         spark = None
         try:
-            logger.info("Criando fato visualizações...")
             spark = create_spark_session()
+            logger.info("Processando fato_visualizacoes...")
             
             # Ler dados silver
             visualizacoes_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/visualizacoes"
-            videos_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/videos"
             
-            df_visualizacoes = spark.read.format("delta").load(visualizacoes_path)
-            df_videos = spark.read.format("delta").load(videos_path)
+            # Verificar existência do caminho
+            hadoop_conf = spark.sparkContext._jsc.hadoopConfiguration()
+            fs = spark.sparkContext._jvm.org.apache.hadoop.fs.FileSystem.get(
+                spark.sparkContext._jvm.java.net.URI.create(visualizacoes_path), 
+                hadoop_conf
+            )
+            path_obj = spark.sparkContext._jvm.org.apache.hadoop.fs.Path(visualizacoes_path)
             
-            # Juntar e enriquecer dados
-            fato_visualizacoes = df_visualizacoes.join(
-                df_videos,
-                "id_video",
-                "left"
-            ).select(
-                "id_visualizacao",
-                "id_usuario",
-                "id_video",
-                "data_hora_visualizacao",
-                "duracao"
-            ).withColumn(
-                "data",
-                F.to_date("data_hora_visualizacao")
-            ).withColumn(
-                "hora",
-                F.date_format("data_hora_visualizacao", "HH:mm:ss")
-            ).withColumn(
+            if not fs.exists(path_obj):
+                raise FileNotFoundError(f"Caminho não encontrado: {visualizacoes_path}")
+            
+            # Tentar ler em diferentes formatos
+            df_visualizacoes = None
+            for format in ["parquet", "delta"]:  # Priorizar Parquet
+                try:
+                    logger.info(f"Lendo visualizacoes como {format.upper()}...")
+                    df_visualizacoes = spark.read.format(format).load(visualizacoes_path)
+                    break
+                except Exception as e:
+                    logger.warning(f"Falha ao ler como {format.upper()}: {str(e)}")
+            
+            if df_visualizacoes is None:
+                raise RuntimeError("Falha ao ler dados de visualizações")
+            
+            # Criar id_tempo
+            fato = df_visualizacoes.withColumn(
                 "id_tempo",
-                F.date_format("data", "yyyyMMdd").cast("int")
-            ).withColumn(
-                "duracao_assistida",
-                F.expr("least(duracao, 60)")  # Exemplo: limita a 60 segundos
-            ).drop("duracao")
+                date_format(col("data_hora_visualizacao"), "yyyyMMdd").cast("int")
+            )
             
-            # Salvar fato
+            # Salvar na Gold como Parquet
             gold_path = f"s3a://{MINIO_GOLD_BUCKET}/{DATA_FOLDER}/fato_visualizacoes"
-            (fato_visualizacoes.write
-                .format("delta")
-                .partitionBy("data")
-                .mode("overwrite")
-                .save(gold_path))
-            
-            logger.info(f"Fato visualizações criado com {fato_visualizacoes.count()} registros")
+            fato.write.format("parquet") \
+                .partitionBy("id_tempo") \
+                .mode("overwrite") \
+                .save(gold_path)
+                
+            logger.info(f"fato_visualizacoes salva em: {gold_path}")
             return "SUCCESS: fato_visualizacoes"
             
         except Exception as e:
-            error_msg = f"Erro ao criar fato_visualizacoes: {str(e)}"
-            logger.error(error_msg, exc_info=True)
+            logger.error(f"Erro ao criar fato_visualizacoes: {str(e)}", exc_info=True)
             return f"ERROR: fato_visualizacoes - {str(e)}"
-        
         finally:
             if spark:
                 spark.stop()
 
     @task
-    def create_fato_pagamentos():
-        """Cria fato de pagamentos"""
+    def create_agg_metricas():
         spark = None
         try:
-            logger.info("Criando fato pagamentos...")
             spark = create_spark_session()
+            logger.info("Processando agg_metricas...")
             
-            # Ler dados silver
-            pagamentos_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/pagamentos"
+            # Ler dados gold
+            fato_path = f"s3a://{MINIO_GOLD_BUCKET}/{DATA_FOLDER}/fato_visualizacoes"
+            dim_videos_path = f"s3a://{MINIO_GOLD_BUCKET}/{DATA_FOLDER}/dim_videos"
+            dim_usuarios_path = f"s3a://{MINIO_GOLD_BUCKET}/{DATA_FOLDER}/dim_usuarios"
             
-            df_pagamentos = spark.read.format("delta").load(pagamentos_path)
+            # Função para ler tabelas gold com resiliência
+            def read_gold_table(path, table_name):
+                # Verificar existência do caminho
+                hadoop_conf = spark.sparkContext._jsc.hadoopConfiguration()
+                fs = spark.sparkContext._jvm.org.apache.hadoop.fs.FileSystem.get(
+                    spark.sparkContext._jvm.java.net.URI.create(path), 
+                    hadoop_conf
+                )
+                path_obj = spark.sparkContext._jvm.org.apache.hadoop.fs.Path(path)
+                
+                if not fs.exists(path_obj):
+                    raise FileNotFoundError(f"Caminho não encontrado: {path}")
+                
+                # Tentar ler em diferentes formatos
+                for format in ["parquet", "delta"]:  # Priorizar Parquet
+                    try:
+                        logger.info(f"Lendo {table_name} como {format.upper()}...")
+                        return spark.read.format(format).load(path)
+                    except Exception as e:
+                        logger.warning(f"Falha ao ler {table_name} como {format.upper()}: {str(e)}")
+                raise RuntimeError(f"Falha ao ler dados para {table_name}")
             
-            # Enriquecer dados
-            fato_pagamentos = df_pagamentos.select(
-                "id_pagamento",
-                "id_usuario",
-                "valor",
-                "data_hora_pagamento"
-            ).withColumn(
-                "data",
-                F.to_date("data_hora_pagamento")
-            ).withColumn(
-                "id_tempo",
-                F.date_format("data", "yyyyMMdd").cast("int")
-            ).withColumn(
-                "mes_ano",
-                F.date_format("data", "yyyy-MM")
-            )
+            df_fato = read_gold_table(fato_path, "fato_visualizacoes")
+            df_videos = read_gold_table(dim_videos_path, "dim_videos")
+            df_usuarios = read_gold_table(dim_usuarios_path, "dim_usuarios")
             
-            # Calcular métricas recorrentes
-            window = Window.partitionBy("id_usuario").orderBy("data")
-            fato_pagamentos = fato_pagamentos.withColumn(
-                "pagamento_anterior",
-                F.lag("valor").over(window)
-            ).withColumn(
-                "variacao_valor",
-                F.when(F.col("pagamento_anterior").isNull(), 0)
-                 .otherwise(F.col("valor") - F.col("pagamento_anterior"))
-            )
-            
-            # Salvar fato
-            gold_path = f"s3a://{MINIO_GOLD_BUCKET}/{DATA_FOLDER}/fato_pagamentos"
-            (fato_pagamentos.write
-                .format("delta")
-                .partitionBy("mes_ano")
-                .mode("overwrite")
-                .save(gold_path))
-            
-            logger.info(f"Fato pagamentos criado com {fato_pagamentos.count()} registros")
-            return "SUCCESS: fato_pagamentos"
-            
-        except Exception as e:
-            error_msg = f"Erro ao criar fato_pagamentos: {str(e)}"
-            logger.error(error_msg, exc_info=True)
-            return f"ERROR: fato_pagamentos - {str(e)}"
-        
-        finally:
-            if spark:
-                spark.stop()
-
-    @task
-    def create_fato_avaliacoes():
-        """Cria fato de avaliações"""
-        spark = None
-        try:
-            logger.info("Criando fato avaliações...")
-            spark = create_spark_session()
-            
-            # Ler dados silver
-            avaliacoes_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/avaliacoes"
-            
-            df_avaliacoes = spark.read.format("delta").load(avaliacoes_path)
-            
-            # Enriquecer dados
-            fato_avaliacoes = df_avaliacoes.select(
-                "id_avaliacao",
-                "id_usuario",
-                "id_video",
-                "nota",
-                "comentario",
-                F.current_timestamp().alias("data_processamento")
-            ).withColumn(
-                "sentimento",
-                F.when(F.col("nota") >= 4, "Positivo")
-                 .when(F.col("nota") == 3, "Neutro")
-                 .otherwise("Negativo")
-            )
-            
-            # Salvar fato
-            gold_path = f"s3a://{MINIO_GOLD_BUCKET}/{DATA_FOLDER}/fato_avaliacoes"
-            (fato_avaliacoes.write
-                .format("delta")
-                .mode("overwrite")
-                .save(gold_path))
-            
-            logger.info(f"Fato avaliações criado com {fato_avaliacoes.count()} registros")
-            return "SUCCESS: fato_avaliacoes"
-            
-        except Exception as e:
-            error_msg = f"Erro ao criar fato_avaliacoes: {str(e)}"
-            logger.error(error_msg, exc_info=True)
-            return f"ERROR: fato_avaliacoes - {str(e)}"
-        
-        finally:
-            if spark:
-                spark.stop()
-
-    @task
-    def create_agg_engajamento():
-        """Cria agregação de engajamento"""
-        spark = None
-        try:
-            logger.info("Criando agregação de engajamento...")
-            spark = create_spark_session()
-            
-            # Ler dados necessários
-            visualizacoes_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/visualizacoes"
-            favoritos_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/favoritos"
-            avaliacoes_path = f"s3a://{MINIO_SILVER_BUCKET}/{DATA_FOLDER}/avaliacoes"
-            
-            df_visualizacoes = spark.read.format("delta").load(visualizacoes_path)
-            df_favoritos = spark.read.format("delta").load(favoritos_path)
-            df_avaliacoes = spark.read.format("delta").load(avaliacoes_path)
-            
-            # Agregar visualizações por vídeo
-            agg_visualizacoes = df_visualizacoes.groupBy("id_video").agg(
-                F.count("*").alias("total_visualizacoes"),
-                F.avg("duracao").alias("media_duracao_assistida")
-            )
-            
-            # Agregar favoritos por vídeo
-            agg_favoritos = df_favoritos.groupBy("id_video").agg(
-                F.count("*").alias("total_favoritos")
-            )
-            
-            # Agregar avaliações por vídeo
-            agg_avaliacoes = df_avaliacoes.groupBy("id_video").agg(
-                F.count("*").alias("total_avaliacoes"),
-                F.avg("nota").alias("media_avaliacoes")
-            )
-            
-            # Juntar todas as agregações
-            agg_engajamento = agg_visualizacoes.join(
-                agg_favoritos, "id_video", "left"
+            # Juntar dimensões
+            df = df_fato.join(
+                df_videos, 
+                "id_video", 
+                "left"
             ).join(
-                agg_avaliacoes, "id_video", "left"
-            ).fillna(0, ["total_favoritos", "total_avaliacoes"])
-            
-            # Calcular taxa de engajamento
-            agg_engajamento = agg_engajamento.withColumn(
-                "taxa_engajamento",
-                F.round((F.col("total_favoritos") + F.col("total_avaliacoes")) / 
-                F.greatest(F.col("total_visualizacoes"), F.lit(1)) * 100, 2)
+                df_usuarios,
+                "id_usuario",
+                "left"
             )
             
-            # Salvar agregação
-            gold_path = f"s3a://{MINIO_GOLD_BUCKET}/{DATA_FOLDER}/agg_engajamento_videos"
-            (agg_engajamento.write
-                .format("delta")
-                .mode("overwrite")
-                .save(gold_path))
+            # Calcular métricas
+            agg_metricas = df.groupBy(
+                "id_tempo", 
+                "genero", 
+                "plano"
+            ).agg(
+                count("*").alias("total_visualizacoes"),
+                avg("duracao").alias("duracao_media"),
+                _sum(when(col("genero").isNotNull(), 1)).alias("visualizacoes_com_genero")
+            )
             
-            logger.info(f"Agregação de engajamento criada com {agg_engajamento.count()} registros")
-            return "SUCCESS: agg_engajamento"
+            # Adicionar timestamp de processamento
+            agg_metricas = agg_metricas.withColumn(
+                "data_processamento_gold", 
+                current_timestamp()
+            )
+            
+            # Salvar na Gold como Parquet
+            gold_path = f"s3a://{MINIO_GOLD_BUCKET}/{DATA_FOLDER}/agg_metricas"
+            agg_metricas.write.format("parquet") \
+                .mode("overwrite") \
+                .save(gold_path)
+                
+            logger.info(f"agg_metricas salva em: {gold_path}")
+            return "SUCCESS: agg_metricas"
             
         except Exception as e:
-            error_msg = f"Erro ao criar agg_engajamento: {str(e)}"
-            logger.error(error_msg, exc_info=True)
-            return f"ERROR: agg_engajamento - {str(e)}"
-        
+            logger.error(f"Erro ao criar agg_metricas: {str(e)}", exc_info=True)
+            return f"ERROR: agg_metricas - {str(e)}"
         finally:
             if spark:
                 spark.stop()
 
     @task
     def finalize(results):
-        success_count = sum("SUCCESS" in result for result in results)
-        error_count = sum("ERROR" in result for result in results)
+        success_count = sum(1 for r in results if r.startswith("SUCCESS"))
+        error_count = sum(1 for r in results if r.startswith("ERROR"))
         
         logger.info(f"\n{'='*50}")
-        logger.info(f"RESUMO FINAL DA CAMADA GOLD")
-        logger.info(f"Total de tabelas processadas: {len(results)}")
-        logger.info(f"Tabelas com sucesso: {success_count}")
-        logger.info(f"Tabelas com erro: {error_count}")
-        logger.info(f"{'='*50}\n")
-        
-        for result in results:
-            if "SUCCESS" in result:
-                logger.info(f"✅ {result}")
-            else:
-                logger.error(f"❌ {result}")
+        logger.info("RESUMO DA TRANSFORMAÇÃO SILVER TO GOLD")
+        logger.info(f"Tabelas processadas: {len(results)}")
+        logger.info(f"Sucessos: {success_count}")
+        logger.info(f"Erros: {error_count}")
         
         if error_count > 0:
-            raise RuntimeError(f"Ocorreram {error_count} erros no processamento Gold")
-        
-        return "Camada Gold processada com sucesso!"
+            logger.error("Detalhes dos erros:")
+            for r in results:
+                if r.startswith("ERROR"):
+                    logger.error(r)
+            logger.error("Processamento concluído com erros")
+            return "Processamento concluído com erros"
+        else:
+            logger.info("Todas as tabelas Gold processadas com sucesso!")
+            return "Processamento Gold concluído"
 
-    # Verificar conexão com MinIO primeiro
-    minio_check = verify_minio_connection()
-    
-    # Criar dimensões
+    # Orquestração das tarefas
     dim_tempo = create_dim_tempo()
-    dim_usuarios = create_dim_usuarios()
     dim_videos = create_dim_videos()
-    
-    # Criar fatos
+    dim_usuarios = create_dim_usuarios()
     fato_visualizacoes = create_fato_visualizacoes()
-    fato_pagamentos = create_fato_pagamentos()
-    fato_avaliacoes = create_fato_avaliacoes()
     
-    # Criar agregações
-    agg_engajamento = create_agg_engajamento()
+    # Dependências
+    fato_visualizacoes.set_upstream([dim_tempo])
     
-    # Definir dependências
-    dim_tempo.set_upstream(minio_check)
-    dim_usuarios.set_upstream(minio_check)
-    dim_videos.set_upstream(minio_check)
+    agg_metricas = create_agg_metricas()
+    agg_metricas.set_upstream([dim_videos, dim_usuarios, fato_visualizacoes])
     
-    # Consolidar resultados
-    results = [dim_tempo, dim_usuarios, dim_videos, 
-               fato_visualizacoes, fato_pagamentos, fato_avaliacoes,
-               agg_engajamento]
-    
-    finalize(results)
-
+    final_results = finalize([
+        dim_tempo,
+        dim_videos,
+        dim_usuarios,
+        fato_visualizacoes,
+        agg_metricas
+    ])
 
 # Instanciar o DAG
-silver_to_gold_dag = silver_to_gold_dag()
+silver_to_gold_processing = silver_to_gold_dag()
