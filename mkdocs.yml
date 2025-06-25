@@ -1,11 +1,11 @@
 # mkdocs.yml
-site_name: Meu Projeto de Exemplo
-site_description: Documentação de exemplo com MkDocs
-site_author: Seu Nome
+site_name: Streaming de vídeos - Pipeline Completo
+site_description: Documentação de projeto ABP - UNISATC
+site_author: Bruno, João Gabriel, João Pedro, Rafael e Yasmin
 site_url: https://meusite.github.io/
 
 # Repository
-repo_name: usuario/meu-projeto
+repo_name: brunogmadeira/ABP-eng-de-dados
 repo_url: https://github.com/brunogmadeira/ABP-eng-de-dados.git
 
 # Configuration
@@ -13,18 +13,18 @@ theme:
   name: material
   language: pt
   palette:
-    - scheme: default
-      primary: blue
-      accent: blue
-      toggle:
-        icon: material/brightness-7
-        name: Modo escuro
     - scheme: slate
-      primary: blue
-      accent: blue
+      primary: deep purple
+      accent: purple
       toggle:
         icon: material/brightness-4
         name: Modo claro
+    - scheme: default
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/brightness-7
+        name: Modo escuro
   features:
     - navigation.tabs
     - navigation.top
@@ -34,11 +34,8 @@ theme:
 # Navigation
 nav:
   - Home: index.md
-  - Sobre: about.md
-  - Guias:
-    - Instalação: guides/installation.md
-    - Configuração: guides/configuration.md
-  - API: api.md
+  - Configuração do Ambiente: config-ambiente.md
+ 
 
 # Extensions
 markdown_extensions:
