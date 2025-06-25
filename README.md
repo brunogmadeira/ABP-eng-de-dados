@@ -14,6 +14,10 @@ O projeto segue uma arquitetura de **Data Lake** com processamento em camadas:
 - **🥇 Gold Layer**: Dados agregados e otimizados para consumo
 - **📈 Dashboards**: Visualizações e KPIs para tomada de decisão
 
+## 📊 Representação Arquitetura
+
+![representacao_arquiteura](assets/IMG_4819.png)
+
 ## 📋 Pré-requisitos
 
 Antes de iniciar, certifique-se de ter instalado em sua máquina:
