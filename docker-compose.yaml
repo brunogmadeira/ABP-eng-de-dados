@@ -33,6 +33,16 @@ services:
       - astro_default
       - astro_ab5377_airflow
 
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    ports:
+      - "3000:3000"
+    environment:
+      MB_DB_FILE: /metabase-data/metabase.db
+    volumes:
+      - metabase-data:/metabase-data
+
   minio:
     image: minio/minio
     container_name: minio
@@ -96,7 +106,8 @@ volumes:
       o: bind
       device: ./scripts
   minio_data: {}
-
+  metabase-data:
+  
 networks:
   app-network:
     driver: bridge
