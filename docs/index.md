@@ -1,98 +1,82 @@
-# 🚀 Bem-vindo ao Meu Projeto
+# 🎬 Streaming de Vídeos - Pipeline Completo
 
-Olá! Esta é a documentação do meu projeto de exemplo usando **MkDocs**. 
+## 📊 Visão Geral
 
-## 📖 Sobre este Projeto
+Este projeto implementa uma solução completa de engenharia de dados, abrangendo desde a ingestão e transformação de dados até a criação de dashboards interativos para análise e monitoramento. 
 
-Este é um exemplo de como criar uma documentação bonita e funcional usando MkDocs com o tema Material Design.
+A arquitetura foi desenvolvida utilizando tecnologias modernas de big data, incluindo **Apache Spark**, **Data Lakes** e ferramentas de visualização avançadas. A temática escolhida — plataforma de streaming de vídeo — permite trabalhar com dados realistas e ricos em volume e variedade.
 
-!!! info "Informação"
-    Esta documentação foi criada para demonstrar as principais funcionalidades do MkDocs.
+## 🏗️ Arquitetura da Solução
 
-## 🎯 Principais Funcionalidades
+O projeto segue uma arquitetura de **Data Lake** com processamento em camadas:
 
-### ✨ Recursos Disponíveis
+### 📥 Camada de Ingestão
+- Coleta automatizada de dados de múltiplas fontes
+- Processamento em tempo real e batch
+- Validação e qualidade dos dados
 
-- **📝 Documentação** clara e organizada
-- **🎨 Tema moderno** com Material Design
-- **🔍 Busca** integrada
-- **📱 Responsivo** para mobile
-- **🌙 Modo escuro** alternável
+### 🥉 Bronze Layer
+- Dados brutos no formato original
+- Armazenamento em formatos Delta/Iceberg
+- Histórico completo de todas as informações
 
-### 🛠️ Tecnologias Utilizadas
+### 🥈 Silver Layer
+- Dados limpos e estruturados
+- Aplicação de regras de negócio
+- Padronização e normalização
 
-| Tecnologia | Versão | Propósito |
-|------------|--------|-----------|
-| MkDocs | 1.5+ | Gerador de sites |
-| Material | 9.0+ | Tema visual |
-| Python | 3.8+ | Runtime |
+### 🥇 Gold Layer
+- Dados agregados e otimizados para consumo
+- Métricas de negócio calculadas
+- Pronto para análises e relatórios
 
-## 🚀 Início Rápido
+### 📈 Camada de Visualização
+- Dashboards interativos
+- KPIs para tomada de decisão
+- Relatórios automatizados
 
-### Pré-requisitos
+## 🎯 Objetivos do Projeto
 
-- Python 3.8 ou superior
-- pip (gerenciador de pacotes)
+- **📊 Análise de Comportamento**: Entender padrões de consumo de conteúdo
+- **🔍 Monitoramento**: Acompanhar métricas de performance em tempo real
+- **💡 Insights**: Gerar recomendações baseadas em dados
+- **⚡ Escalabilidade**: Arquitetura preparada para crescimento
 
-### Instalação
+## 🛠️ Tecnologias Utilizadas
 
-```bash
-# Instalar MkDocs
-pip install mkdocs-material
+- **🐍 Python**: Linguagem principal para processamento
+- **🌪️ Apache Airflow**: Orquestração de workflows
+- **🐳 Docker**: Containerização dos serviços
+- **🗄️ MySQL**: Banco de dados relacional
+- **📊 Power BI/Grafana**: Visualização de dados
+- **☁️ Apache Spark**: Processamento distribuído
 
-# Criar novo projeto
-python -m mkdocs new meu-projeto
+## 📋 Pré-requisitos
 
-# Entrar na pasta
-cd meu-projeto
+Antes de iniciar, certifique-se de ter instalado em sua máquina:
 
-# Servir localmente
-python -m mkdocs serve
-```
+- 🐍 **Python 3.11.9**
+- 🐳 **Docker Desktop** (manter aberto durante o uso)
+- 📁 **Git**
+- 💻 **VS Code**
+- 🚀 **Astro CLI**
 
-### Primeiro Uso
+## 🚀 Como Começar
 
-1. **Edite** o arquivo `mkdocs.yml`
-2. **Crie** arquivos `.md` na pasta `docs/`
-3. **Execute** `python -m mkdocs serve`
-4. **Acesse** http://localhost:8000
+1. **📖 Leia a documentação** de configuração do ambiente
+2. **⚙️ Configure** seu ambiente de desenvolvimento
+3. **🔄 Execute** os pipelines de dados
+4. **📊 Explore** os dashboards criados
 
-## 📊 Exemplo de Diagrama
+## 🎓 Contexto Acadêmico
 
-```mermaid
-graph TD
-    A[Início] --> B{Tem Python?}
-    B -->|Sim| C[Instalar MkDocs]
-    B -->|Não| D[Instalar Python]
-    D --> C
-    C --> E[Criar Projeto]
-    E --> F[Editar Documentação]
-    F --> G[Publicar Site]
-```
+Este projeto foi desenvolvido como parte do curso de **Engenharia de Dados**, aplicando conceitos modernos de:
 
-## 💡 Dicas Úteis
-
-!!! tip "Dica"
-    Use `python -m mkdocs serve` para visualizar mudanças em tempo real!
-
-!!! warning "Atenção"
-    Sempre teste sua documentação localmente antes de fazer deploy.
-
-!!! success "Sucesso"
-    Parabéns! Você criou sua primeira documentação com MkDocs.
-
-## 🔗 Links Úteis
-
-- [Documentação Oficial](https://mkdocs.org)
-- [Material Theme](https://squidfunk.github.io/mkdocs-material/)
-- [Markdown Guide](https://www.markdownguide.org)
-
-## 📞 Contato
-
-- **📧 Email**: seu.email@exemplo.com
-- **🐙 GitHub**: [github.com/seuusuario](https://github.com/seuusuario)
-- **💼 LinkedIn**: [linkedin.com/in/seuperfil](https://linkedin.com/in/seuperfil)
+- **Data Engineering**: Pipelines robustos e escaláveis
+- **Data Architecture**: Padrões de mercado
+- **DevOps**: Automação e monitoramento
+- **Analytics**: Insights orientados por dados
 
 ---
 
-*📝 Documentação criada com ❤️ usando MkDocs*
+🚀 **Pronto para começar?** Acesse a seção de [Configuração do Ambiente](config-ambiente.md) e siga o passo a passo!
